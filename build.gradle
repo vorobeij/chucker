@@ -51,12 +51,14 @@ buildscript {
     repositories {
         google()
         gradlePluginPortal()
+        mavenCentral()
     }
 
     dependencies {
         classpath "com.android.tools.build:gradle:$androidGradleVersion"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:$junitGradlePluignVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlinVersion"
         classpath "com.apollographql.apollo3:apollo-gradle-plugin:$apolloVersion"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktLintGradleVersion"
@@ -72,8 +74,8 @@ apply plugin: 'io.codearte.nexus-staging'
 apiValidation {
     ignoredProjects += ["sample"]
     ignoredPackages += [
-            "com.chuckerteam.chucker.internal",
-            "com.chuckerteam.chucker.databinding"
+        "com.chuckerteam.chucker.internal",
+        "com.chuckerteam.chucker.databinding"
     ]
 }
 
