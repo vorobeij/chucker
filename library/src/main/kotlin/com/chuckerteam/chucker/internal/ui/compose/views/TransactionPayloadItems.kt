@@ -30,6 +30,7 @@ internal fun HeaderItem(headers: Spanned, modifier: Modifier = Modifier) {
     Text(
         text = headers.toString(),
         style = AppTheme.typography.bodyMedium,
+        color = AppTheme.colorScheme.onBackground,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(id = R.dimen.chucker_doub_grid)),
@@ -42,6 +43,7 @@ internal fun BodyLineItem(line: SpannableStringBuilder, modifier: Modifier = Mod
         text = line.toString(),
         fontFamily = FontFamily.Monospace,
         style = AppTheme.typography.bodySmall,
+        color = AppTheme.colorScheme.onBackground,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(id = R.dimen.chucker_doub_grid))

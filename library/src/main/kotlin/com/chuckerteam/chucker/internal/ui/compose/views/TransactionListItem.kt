@@ -23,9 +23,9 @@ import androidx.core.content.ContextCompat
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
+import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.ProtocolResources
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
-import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.ProtocolResources
 
 @Composable
 internal fun TransactionListItem(
@@ -89,6 +89,7 @@ internal fun TransactionListItem(
                         Text(
                             text = transaction.graphQlOperationName ?: stringResource(id = R.string.chucker_graphql_operation_is_empty),
                             style = AppTheme.typography.bodyMedium,
+                            color = AppTheme.colorScheme.onBackground,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
@@ -108,6 +109,7 @@ internal fun TransactionListItem(
                     Text(
                         text = transaction.host.orEmpty(),
                         style = AppTheme.typography.bodyMedium,
+                        color = AppTheme.colorScheme.onBackground,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
@@ -122,11 +124,20 @@ internal fun TransactionListItem(
                 ) {
                     Text(
                         text = DateFormat.getTimeFormat(context).format(transaction.requestDate),
-                        style = AppTheme.typography.bodySmall
+                        style = AppTheme.typography.bodySmall,
+                        color = AppTheme.colorScheme.onBackground,
                     )
                     if (transaction.status === HttpTransaction.Status.Complete) {
-                        Text(text = transaction.tookMs?.let { "$it ms" }.orEmpty(), style = AppTheme.typography.bodySmall)
-                        Text(text = transaction.totalSizeString.orEmpty(), style = AppTheme.typography.bodySmall)
+                        Text(
+                            text = transaction.tookMs?.let { "$it ms" }.orEmpty(),
+                            color = AppTheme.colorScheme.onBackground,
+                            style = AppTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = transaction.totalSizeString.orEmpty(),
+                            color = AppTheme.colorScheme.onBackground,
+                            style = AppTheme.typography.bodySmall
+                        )
                     }
                 }
             }
