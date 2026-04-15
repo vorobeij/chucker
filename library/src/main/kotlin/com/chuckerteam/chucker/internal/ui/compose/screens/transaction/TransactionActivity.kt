@@ -49,7 +49,7 @@ import com.chuckerteam.chucker.internal.support.shareAsFile
 import com.chuckerteam.chucker.internal.support.shareAsUtf8Text
 import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.ui.compose.screens.overview.TransactionOverviewScreen
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

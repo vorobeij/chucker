@@ -8,7 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chuckerteam.chucker.R
-import com.chuckerteam.chucker.internal.ui.compose.icons.FileDownload
+import com.chuckerteam.design.system.components.icons.FileDownload
 
 @Composable
 internal fun ExportDropdownMenu(

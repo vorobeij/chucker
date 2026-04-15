@@ -102,6 +102,8 @@ dependencies {
 
     implementation "org.brotli:dec:$brotliVersion"
 
+    implementation project(":design-system")
+
     api platform("com.squareup.okhttp3:okhttp-bom:$okhttpVersion")
     api "com.squareup.okhttp3:okhttp"
     testImplementation "com.squareup.okhttp3:mockwebserver"

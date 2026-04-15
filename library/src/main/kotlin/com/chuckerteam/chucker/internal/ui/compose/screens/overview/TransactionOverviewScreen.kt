@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,7 +21,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.TransactionPreviewProvider
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
+import com.chuckerteam.design.system.theme.AppPreview
 
 @Composable
 internal fun TransactionOverviewScreen(

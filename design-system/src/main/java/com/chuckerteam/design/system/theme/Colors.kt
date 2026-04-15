@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose.theme
+package com.chuckerteam.design.system.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
@@ -69,9 +69,9 @@ internal val DarkThemeColors: ColorScheme = darkColorScheme(
     outlineVariant = Color(red = 65, green = 72, blue = 77),
     scrim = Color(red = 0, green = 0, blue = 0)
 )
-internal val ColorScheme.neutral70: Color
+public val ColorScheme.neutral70: Color
     @Composable
     get() = if (!isSystemInDarkTheme()) Color(0xFFAAABAE) else Color(0xFFAAABAE)
-internal val ColorScheme.neutral50: Color
+public val ColorScheme.neutral50: Color
     @Composable
     get() = if (!isSystemInDarkTheme()) Color(0xFF75777A) else Color(0xFF75777A)

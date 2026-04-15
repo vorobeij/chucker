@@ -22,8 +22,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppPreview
+import com.chuckerteam.design.system.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.compose.views.BodyLineItem
 import com.chuckerteam.chucker.internal.ui.compose.views.HeaderItem
 import com.chuckerteam.chucker.internal.ui.compose.views.ImageItem

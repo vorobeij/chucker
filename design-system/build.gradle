@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.devtools.ksp'
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+
+android {
+    compileSdk rootProject.compileSdkVersion
+    namespace "com.chuckerteam.chucker.design.system"
+
+    compileOptions {
+        kotlinOptions.freeCompilerArgs += [
+            '-module-name', "com.github.ChuckerTeam.Chucker.library",
+            "-Xexplicit-api=strict"
+        ]
+    }
+
+    defaultConfig {
+        minSdk rootProject.minSdkVersion
+        consumerProguardFiles 'proguard-rules.pro'
+        resValue("string", "chucker_version", "$VERSION_NAME")
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    kotlin {
+        jvmToolchain(11)
+    }
+
+    buildFeatures {
+        viewBinding true
+        buildConfig = false
+        compose = true
+    }
+
+    resourcePrefix 'chucker_ds_'
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+
+    def composeBom = platform('androidx.compose:compose-bom:2024.06.00')
+    implementation composeBom
+    androidTestImplementation composeBom
+
+    implementation 'androidx.compose.ui:ui'
+    implementation 'androidx.compose.ui:ui-graphics'
+    implementation 'androidx.compose.ui:ui-tooling-preview'
+    implementation 'androidx.compose.material3:material3'
+    implementation 'androidx.activity:activity-compose'
+    debugImplementation 'androidx.compose.ui:ui-tooling'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion"
+    implementation "androidx.compose.runtime:runtime-livedata"
+    implementation "androidx.compose.ui:ui-text"
+
+    implementation "com.google.android.material:material:$materialComponentsVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "androidx.palette:palette-ktx:$paletteKtxVersion"
+}

@@ -1,11 +1,11 @@
-package com.chuckerteam.chucker.internal.ui.compose.theme
+package com.chuckerteam.design.system.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.toFontFamily
 import androidx.compose.ui.unit.sp
-import com.chuckerteam.chucker.R
+import com.chuckerteam.chucker.design.system.R
 
 private val fontRegular = Font(resId = R.font.roboto_regular).toFontFamily()
 private val fontMedium = Font(resId = R.font.roboto_medium).toFontFamily()

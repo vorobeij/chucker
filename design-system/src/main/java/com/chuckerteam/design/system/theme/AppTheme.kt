@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose.theme
+package com.chuckerteam.design.system.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -6,7 +6,6 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -14,7 +13,7 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.platform.LocalContext
 
 @Composable
-internal fun AppTheme(
+public fun AppTheme(
     forcedDark: Boolean? = null,
     content: @Composable () -> Unit
 ) {
@@ -41,13 +40,13 @@ internal fun AppTheme(
     }
 }
 
-internal object AppTheme {
+public object AppTheme {
     /**
      * Retrieves the current [ColorScheme] at the call site's position in the hierarchy.
      *
      * @sample androidx.compose.material3.samples.ThemeColorSample
      */
-    val colorScheme: ColorScheme
+    public val colorScheme: ColorScheme
         @Composable @ReadOnlyComposable get() = MaterialTheme.colorScheme
 
     /**
@@ -55,7 +54,7 @@ internal object AppTheme {
      *
      * @sample androidx.compose.material3.samples.ThemeTextStyleSample
      */
-    val typography: Typography
+    public val typography: Typography
         @Composable @ReadOnlyComposable get() = MaterialTheme.typography
 
     /**
@@ -63,7 +62,7 @@ internal object AppTheme {
      *
      * @sample androidx.compose.material3.samples.ThemeShapeSample
      */
-    val shapes: Shapes
+    public val shapes: Shapes
         @Composable @ReadOnlyComposable get() = MaterialTheme.shapes
 }
 

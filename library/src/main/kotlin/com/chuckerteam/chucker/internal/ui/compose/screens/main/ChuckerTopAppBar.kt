@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.chuckerteam.chucker.R
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

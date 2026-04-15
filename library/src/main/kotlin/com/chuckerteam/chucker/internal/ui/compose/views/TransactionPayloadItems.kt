@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,7 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
+import com.chuckerteam.design.system.theme.AppPreview
 
 @Composable
 internal fun HeaderItem(headers: Spanned, modifier: Modifier = Modifier) {

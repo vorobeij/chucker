@@ -24,8 +24,8 @@ import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
 import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.ProtocolResources
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
-import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
+import com.chuckerteam.design.system.theme.AppPreview
+import com.chuckerteam.design.system.theme.AppTheme
 
 @Composable
 internal fun TransactionListItem(
