@@ -65,11 +65,11 @@ internal class MainActivity : BaseChuckerActivity() {
         enableEdgeToEdge()
         setContent {
             AppTheme {
-                Surface(modifier = Modifier.Companion.fillMaxSize()) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     ChuckerMainScreen(
                         viewModel = viewModel,
                         applicationName = applicationName.toString(),
-                        onTransactionClick = { TransactionActivity.Companion.start(this, it) },
+                        onTransactionClick = { TransactionActivity.start(this, it) },
                         onClearClick = {
                             showDialog(
                                 getClearDialogData(),

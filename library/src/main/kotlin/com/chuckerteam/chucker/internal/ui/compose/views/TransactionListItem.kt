@@ -2,6 +2,8 @@ package com.chuckerteam.chucker.internal.ui.compose.views
 
 import android.content.Context
 import android.text.format.DateFormat
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +35,17 @@ import androidx.core.content.ContextCompat
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
-import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.ProtocolResources
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
+
+internal sealed class ProtocolResources(
+    @DrawableRes val icon: Int,
+    @ColorRes val color: Int,
+) {
+    class Http : ProtocolResources(R.drawable.chucker_ic_http, R.color.chucker_color_error)
+
+    class Https : ProtocolResources(R.drawable.chucker_ic_https, R.color.chucker_color_primary)
+}
 
 @Composable
 internal fun TransactionListItem(
