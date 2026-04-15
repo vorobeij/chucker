@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import androidx.core.net.toUri
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 
 @Composable
 internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
@@ -83,7 +84,7 @@ internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true)
+@AppPreview
 @Composable
 private fun ChuckerTutorialSectionPreview() {
     AppTheme {

@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 
 @Composable
 internal fun TransactionOverviewScreen(
@@ -87,7 +88,7 @@ private fun OverviewRow(label: Int, value: String?, modifier: Modifier = Modifie
     }
 }
 
-@Preview(showBackground = true)
+@AppPreview
 @Composable
 private fun TransactionOverviewScreenPreview(
     @PreviewParameter(TransactionPreviewProvider::class) transaction: HttpTransaction

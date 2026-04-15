@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.support.calculateLuminance
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.transaction.PayloadType
 import com.chuckerteam.chucker.internal.ui.transaction.TransactionBodyAdapter
@@ -187,7 +188,7 @@ private suspend fun processPayload(
     return result
 }
 
-@Preview(showBackground = true)
+@AppPreview
 @Composable
 private fun TransactionPayloadScreenPreview(
     @PreviewParameter(TransactionPreviewProvider::class) transaction: HttpTransaction

@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 
 @Composable
 internal fun HeaderItem(headers: Spanned, modifier: Modifier = Modifier) {
@@ -70,7 +71,7 @@ internal fun ImageItem(image: Bitmap, luminance: Double?, modifier: Modifier = M
     }
 }
 
-@Preview(showBackground = true)
+@AppPreview
 @Composable
 private fun PayloadItemsPreview() {
     AppTheme {
