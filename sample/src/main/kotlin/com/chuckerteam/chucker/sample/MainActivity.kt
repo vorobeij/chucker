@@ -70,7 +70,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        StrictMode.setVmPolicy(
+        // todo JsonTree fails here. Uncomment after fix
+        /*StrictMode.setVmPolicy(
             StrictMode.VmPolicy.Builder()
                 .detectLeakedClosableObjects()
                 .penaltyLog()
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
                 .penaltyLog()
                 .penaltyDeath()
                 .build(),
-        )
+        )*/
     }
 
     private fun launchChuckerDirectly() {

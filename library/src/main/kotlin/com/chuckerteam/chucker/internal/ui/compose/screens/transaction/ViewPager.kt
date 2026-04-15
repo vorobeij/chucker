@@ -40,6 +40,7 @@ internal fun ViewPager(
                 )
             }
         }
+        // todo remember last selected tab
         HorizontalPager(state = pagerState) { page ->
             when (page) {
                 0 -> TransactionOverviewScreen(

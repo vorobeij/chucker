@@ -67,7 +67,7 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
-    def composeBom = platform('androidx.compose:compose-bom:2024.06.00')
+    def composeBom = platform('androidx.compose:compose-bom:2026.03.01')
     implementation composeBom
     androidTestImplementation composeBom
 
@@ -101,6 +101,8 @@ dependencies {
 
     implementation "org.brotli:dec:$brotliVersion"
 
+    implementation("com.sebastianneubauer.jsontree:jsontree:2.3.0")
+    implementation "androidx.compose.material:material-icons-core"
     implementation project(":design-system")
 
     api platform("com.squareup.okhttp3:okhttp-bom:$okhttpVersion")

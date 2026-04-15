@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
-import com.chuckerteam.chucker.internal.support.calculateLuminance
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenEmpty
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenLoading
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenSuccess
@@ -48,11 +47,19 @@ internal fun TransactionPayloadScreen(
     when {
         isLoading -> TransactionPayloadScreenLoading()
         showEmptyState -> TransactionPayloadScreenEmpty(payloadType)
-        else -> TransactionPayloadScreenSuccess(showSearchSummary, searchSummaryText, items)
+        else -> TransactionPayloadScreenSuccess(
+            showSearchSummary = showSearchSummary,
+            searchSummaryText = searchSummaryText,
+            items = items,
+            json = when (payloadType) {
+                PayloadType.REQUEST -> transaction?.requestBody.orEmpty()
+                PayloadType.RESPONSE -> transaction?.responseBody.orEmpty()
+            }
+        )
     }
 }
 
-private  fun processPayload(
+private fun processPayload(
     type: PayloadType,
     transaction: HttpTransaction?,
     formatRequestBody: Boolean,

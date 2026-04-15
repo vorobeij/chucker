@@ -15,8 +15,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.chuckerteam.chucker.R
@@ -69,7 +71,7 @@ internal class TransactionActivity : BaseChuckerActivity() {
                             )
                         }
                     ) { padding ->
-                        val pagerState = rememberPagerState(initialPage = 0) { 3 }
+                        val pagerState = rememberPagerState(initialPage = 2) { 3 }
                         val tabs = listOf(
                             stringResource(id = R.string.chucker_overview),
                             stringResource(id = R.string.chucker_request),
