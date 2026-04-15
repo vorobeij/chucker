@@ -1,5 +1,9 @@
 package com.chuckerteam.chucker.internal.support
 
+import java.net.HttpURLConnection.HTTP_NOT_MODIFIED
+import java.net.HttpURLConnection.HTTP_NO_CONTENT
+import java.net.HttpURLConnection.HTTP_OK
+import java.util.Locale
 import okhttp3.Headers
 import okhttp3.Response
 import okio.Source
@@ -7,10 +11,6 @@ import okio.buffer
 import okio.gzip
 import okio.source
 import org.brotli.dec.BrotliInputStream
-import java.net.HttpURLConnection.HTTP_NOT_MODIFIED
-import java.net.HttpURLConnection.HTTP_NO_CONTENT
-import java.net.HttpURLConnection.HTTP_OK
-import java.util.Locale
 
 private const val HTTP_CONTINUE = 100
 

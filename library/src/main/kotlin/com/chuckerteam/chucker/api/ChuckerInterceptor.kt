@@ -8,10 +8,10 @@ import com.chuckerteam.chucker.internal.support.PlainTextDecoder
 import com.chuckerteam.chucker.internal.support.RequestProcessor
 import com.chuckerteam.chucker.internal.support.ResponseProcessor
 import com.chuckerteam.chucker.internal.support.addNonBlankPathSegments
+import java.io.IOException
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.io.IOException
 
 /**
  * An OkHttp Interceptor which persists and displays HTTP activity

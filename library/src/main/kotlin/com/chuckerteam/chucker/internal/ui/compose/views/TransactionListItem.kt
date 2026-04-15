@@ -1,6 +1,5 @@
 package com.chuckerteam.chucker.internal.ui.compose.views
 
-import android.R.attr.maxLines
 import android.content.Context
 import android.text.format.DateFormat
 import androidx.compose.foundation.Image
@@ -92,7 +91,7 @@ private fun TimeDurationSize(context: Context, transaction: HttpTransactionTuple
                 style = AppTheme.typography.bodySmall
             )
             Text(
-                text = transaction.totalSizeString.orEmpty(),
+                text = transaction.totalSizeString,
                 color = AppTheme.colorScheme.onBackground,
                 style = AppTheme.typography.bodySmall
             )

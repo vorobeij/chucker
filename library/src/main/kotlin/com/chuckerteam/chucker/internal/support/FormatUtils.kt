@@ -3,9 +3,6 @@ package com.chuckerteam.chucker.internal.support
 import com.chuckerteam.chucker.internal.data.entity.HttpHeader
 import com.google.gson.JsonParseException
 import com.google.gson.JsonParser
-import org.w3c.dom.Document
-import org.xml.sax.InputSource
-import org.xml.sax.SAXParseException
 import java.io.ByteArrayInputStream
 import java.io.IOException
 import java.io.StringWriter
@@ -13,6 +10,11 @@ import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.nio.charset.Charset
 import java.util.Locale
+import kotlin.math.ln
+import kotlin.math.pow
+import org.w3c.dom.Document
+import org.xml.sax.InputSource
+import org.xml.sax.SAXParseException
 import javax.xml.XMLConstants
 import javax.xml.parsers.DocumentBuilder
 import javax.xml.parsers.DocumentBuilderFactory
@@ -21,8 +23,6 @@ import javax.xml.transform.TransformerException
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
-import kotlin.math.ln
-import kotlin.math.pow
 
 internal object FormatUtils {
     private const val SI_MULTIPLE = 1000

@@ -1,9 +1,9 @@
 package com.chuckerteam.chucker.internal.support
 
-import okio.Buffer
-import okio.ByteString
 import java.io.EOFException
 import kotlin.math.min
+import okio.Buffer
+import okio.ByteString
 
 private const val MAX_PREFIX_SIZE = 64L
 private const val CODE_POINT_SIZE = 16

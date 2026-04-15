@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.api.Chucker
+import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.model.DialogData
 import com.chuckerteam.chucker.internal.support.FileSaver
@@ -28,7 +29,6 @@ import com.chuckerteam.chucker.internal.support.TransactionDetailsHarSharable
 import com.chuckerteam.chucker.internal.support.TransactionListDetailsSharable
 import com.chuckerteam.chucker.internal.support.shareAsFile
 import com.chuckerteam.chucker.internal.support.showDialog
-import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.TransactionActivity
 import com.chuckerteam.design.system.theme.AppTheme
 import kotlinx.coroutines.Dispatchers

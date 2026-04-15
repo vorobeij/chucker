@@ -1,12 +1,12 @@
 package com.chuckerteam.chucker.internal.support
 
 import com.chuckerteam.chucker.api.BodyDecoder
+import kotlin.text.Charsets.UTF_8
 import okhttp3.Headers
 import okhttp3.MediaType
 import okhttp3.Request
 import okhttp3.Response
 import okio.ByteString
-import kotlin.text.Charsets.UTF_8
 
 internal object PlainTextDecoder : BodyDecoder {
     override fun decodeRequest(

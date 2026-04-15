@@ -39,6 +39,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.chuckerteam.chucker.R
+import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.support.HarUtils
 import com.chuckerteam.chucker.internal.support.Sharable
@@ -47,7 +48,6 @@ import com.chuckerteam.chucker.internal.support.TransactionDetailsHarSharable
 import com.chuckerteam.chucker.internal.support.TransactionDetailsSharable
 import com.chuckerteam.chucker.internal.support.shareAsFile
 import com.chuckerteam.chucker.internal.support.shareAsUtf8Text
-import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.ui.compose.screens.overview.TransactionOverviewScreen
 import com.chuckerteam.design.system.theme.AppTheme
 import kotlinx.coroutines.Dispatchers

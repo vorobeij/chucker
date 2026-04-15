@@ -11,9 +11,8 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.api.Chucker
-import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
-import java.util.HashSet
+import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 
 internal class NotificationHelper(val context: Context) {
     companion object {

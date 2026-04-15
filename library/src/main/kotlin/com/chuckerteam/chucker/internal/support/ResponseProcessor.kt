@@ -3,6 +3,7 @@ package com.chuckerteam.chucker.internal.support
 import com.chuckerteam.chucker.api.BodyDecoder
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
+import java.io.File
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.asResponseBody
 import okio.Buffer
@@ -11,7 +12,6 @@ import okio.IOException
 import okio.Source
 import okio.buffer
 import okio.source
-import java.io.File
 
 internal class ResponseProcessor(
     private val collector: ChuckerCollector,

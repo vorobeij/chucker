@@ -3,12 +3,11 @@ package com.chuckerteam.chucker.api
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.chuckerteam.chucker.api.RetentionManager.Period
 import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
 import com.chuckerteam.chucker.internal.support.Logger
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import java.util.concurrent.TimeUnit
 
 /**
  * Class responsible of holding the logic for the retention of your HTTP transactions.

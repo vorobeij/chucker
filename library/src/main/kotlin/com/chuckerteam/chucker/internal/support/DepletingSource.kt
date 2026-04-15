@@ -1,11 +1,11 @@
 package com.chuckerteam.chucker.internal.support
 
+import java.io.IOException
 import okio.Buffer
 import okio.ForwardingSource
 import okio.Source
 import okio.blackholeSink
 import okio.buffer
-import java.io.IOException
 
 internal class DepletingSource(delegate: Source) : ForwardingSource(delegate) {
     private var shouldDeplete = true
