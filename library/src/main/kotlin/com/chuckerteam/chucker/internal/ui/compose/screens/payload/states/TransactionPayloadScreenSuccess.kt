@@ -7,8 +7,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -108,6 +110,8 @@ internal fun TransactionPayloadScreenSuccess(
                     }
                 }
             }
+            item(key = "spacer") { Spacer(modifier = Modifier.height(8.dp)) }
+
             // todo separate header and body items
             itemsIndexed(items, key = { it, item -> item.hashCode() + it }) { _, item ->
                 when (item) {
@@ -147,7 +151,7 @@ private fun MyJsonTree(
         ),
         textStyle = AppTheme.typography.bodyLarge,
         onError = { it.printStackTrace() },
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
         expandSingleChildren = true
     )
 }
