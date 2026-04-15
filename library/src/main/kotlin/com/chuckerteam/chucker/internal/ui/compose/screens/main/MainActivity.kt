@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose.screens
+package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -28,9 +28,9 @@ import com.chuckerteam.chucker.internal.support.TransactionDetailsHarSharable
 import com.chuckerteam.chucker.internal.support.TransactionListDetailsSharable
 import com.chuckerteam.chucker.internal.support.shareAsFile
 import com.chuckerteam.chucker.internal.support.showDialog
-import com.chuckerteam.chucker.internal.ui.BaseChuckerActivity
-import com.chuckerteam.chucker.internal.ui.MainViewModel
-import com.chuckerteam.chucker.internal.ui.compose.ChuckerMainScreen
+import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
+import com.chuckerteam.chucker.internal.ui.compose.screens.main.MainViewModel
+import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.TransactionActivity
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,7 +70,7 @@ internal class MainActivity : BaseChuckerActivity() {
                     ChuckerMainScreen(
                         viewModel = viewModel,
                         applicationName = applicationName.toString(),
-                        onTransactionClick = { TransactionActivity.start(this, it) },
+                        onTransactionClick = { TransactionActivity.Companion.start(this, it) },
                         onClearClick = {
                             showDialog(
                                 getClearDialogData(),

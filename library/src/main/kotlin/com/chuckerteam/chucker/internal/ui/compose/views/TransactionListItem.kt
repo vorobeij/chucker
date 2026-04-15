@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose
+package com.chuckerteam.chucker.internal.ui.compose.views
 
 import android.text.format.DateFormat
 import androidx.compose.foundation.Image
@@ -17,7 +17,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.core.content.ContextCompat
@@ -26,7 +25,7 @@ import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
-import com.chuckerteam.chucker.internal.ui.transaction.ProtocolResources
+import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.ProtocolResources
 
 @Composable
 internal fun TransactionListItem(

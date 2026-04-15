@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose
+package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

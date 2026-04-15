@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose
+package com.chuckerteam.chucker.internal.ui.compose.screens.transaction
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction

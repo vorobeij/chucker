@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.transaction
+package com.chuckerteam.chucker.internal.ui.compose.screens.transaction
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes

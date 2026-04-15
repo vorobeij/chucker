@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui
+package com.chuckerteam.chucker.internal.core
 
 import android.os.Bundle
 import android.widget.Toast

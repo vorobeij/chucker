@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose.screens
+package com.chuckerteam.chucker.internal.ui.compose.screens.transaction
 
 import android.content.Context
 import android.content.Intent
@@ -47,13 +47,9 @@ import com.chuckerteam.chucker.internal.support.TransactionDetailsHarSharable
 import com.chuckerteam.chucker.internal.support.TransactionDetailsSharable
 import com.chuckerteam.chucker.internal.support.shareAsFile
 import com.chuckerteam.chucker.internal.support.shareAsUtf8Text
-import com.chuckerteam.chucker.internal.ui.BaseChuckerActivity
-import com.chuckerteam.chucker.internal.ui.compose.TransactionOverviewScreen
-import com.chuckerteam.chucker.internal.ui.compose.TransactionPayloadScreen
+import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
+import com.chuckerteam.chucker.internal.ui.compose.screens.overview.TransactionOverviewScreen
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
-import com.chuckerteam.chucker.internal.ui.transaction.PayloadType
-import com.chuckerteam.chucker.internal.ui.transaction.TransactionViewModel
-import com.chuckerteam.chucker.internal.ui.transaction.TransactionViewModelFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

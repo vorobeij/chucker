@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui
+package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
@@ -42,6 +42,6 @@ internal class MainViewModel : ViewModel() {
         viewModelScope.launch {
             RepositoryProvider.transaction().deleteAllTransactions()
         }
-        NotificationHelper.clearBuffer()
+        NotificationHelper.Companion.clearBuffer()
     }
 }

@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.compose
+package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete

@@ -1,4 +1,4 @@
-package com.chuckerteam.chucker.internal.ui.transaction
+package com.chuckerteam.chucker.internal.ui.compose.screens.transaction
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

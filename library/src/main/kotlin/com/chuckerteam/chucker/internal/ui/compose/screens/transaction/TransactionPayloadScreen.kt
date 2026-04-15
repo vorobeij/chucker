@@ -1,5 +1,7 @@
-package com.chuckerteam.chucker.internal.ui.compose
+package com.chuckerteam.chucker.internal.ui.compose.screens.transaction
 
+import android.content.Context
+import android.text.SpannableStringBuilder
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -16,17 +18,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
-import com.chuckerteam.chucker.internal.support.calculateLuminance
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppPreview
 import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
-import com.chuckerteam.chucker.internal.ui.transaction.PayloadType
-import com.chuckerteam.chucker.internal.ui.transaction.TransactionBodyAdapter
-import com.chuckerteam.chucker.internal.ui.transaction.TransactionPayloadItem
+import com.chuckerteam.chucker.internal.ui.compose.views.BodyLineItem
+import com.chuckerteam.chucker.internal.ui.compose.views.HeaderItem
+import com.chuckerteam.chucker.internal.ui.compose.views.ImageItem
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -138,7 +138,7 @@ private suspend fun processPayload(
     type: PayloadType,
     transaction: HttpTransaction?,
     formatRequestBody: Boolean,
-    context: android.content.Context
+    context: Context
 ): List<TransactionPayloadItem> {
     if (transaction == null) return emptyList()
     val result = mutableListOf<TransactionPayloadItem>()
@@ -168,18 +168,18 @@ private suspend fun processPayload(
     when {
         (type == PayloadType.REQUEST && transaction.isRequestBodyEncoded) ||
             (type == PayloadType.RESPONSE && transaction.isResponseBodyEncoded) -> {
-            result.add(TransactionPayloadItem.BodyLineItem(android.text.SpannableStringBuilder.valueOf(context.getString(R.string.chucker_body_omitted))))
+            result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(context.getString(R.string.chucker_body_omitted))))
         }
 
         bodyString.isBlank() -> {
-            result.add(TransactionPayloadItem.BodyLineItem(android.text.SpannableStringBuilder.valueOf(context.getString(R.string.chucker_body_empty))))
+            result.add(TransactionPayloadItem.BodyLineItem(SpannableStringBuilder.valueOf(context.getString(R.string.chucker_body_empty))))
         }
 
         else -> {
             bodyString.lines().forEach {
                 result.add(
                     TransactionPayloadItem.BodyLineItem(
-                        it as? android.text.SpannableStringBuilder ?: android.text.SpannableStringBuilder.valueOf(it)
+                        it as? SpannableStringBuilder ?: SpannableStringBuilder.valueOf(it)
                     )
                 )
             }
