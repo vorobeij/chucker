@@ -26,6 +26,7 @@ internal fun ChuckerTopAppBar(
     onShareHarClick: () -> Unit,
     onSaveTextClick: () -> Unit,
     onSaveHarClick: () -> Unit,
+    onActiveChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -35,7 +36,7 @@ internal fun ChuckerTopAppBar(
             onQueryChange = { query -> onQueryChange(query) },
             onSearch = {},
             active = true,
-            onActiveChange = { TODO()/*isSearchActive = !it*/ },
+            onActiveChange = { onActiveChange(it) },
             placeholder = { Text(stringResource(R.string.chucker_search)) },
             leadingIcon = {
                 IconButton(onClick = onSearchToggle) {
@@ -55,7 +56,7 @@ internal fun ChuckerTopAppBar(
         TopAppBar(
             title = {
                 Column {
-                    Text(stringResource(R.string.chucker_network_tutorial))
+                    Text(stringResource(R.string.chucker_name))
                     Text(
                         text = applicationName,
                         style = AppTheme.typography.titleSmall,
