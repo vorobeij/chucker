@@ -13,7 +13,6 @@ import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
@@ -32,6 +31,7 @@ import com.chuckerteam.chucker.internal.support.showDialog
 import com.chuckerteam.chucker.internal.ui.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.ui.MainViewModel
 import com.chuckerteam.chucker.internal.ui.compose.ChuckerMainScreen
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -65,7 +65,7 @@ internal class MainActivity : BaseChuckerActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            AppTheme {
                 Surface(modifier = Modifier.Companion.fillMaxSize()) {
                     ChuckerMainScreen(
                         viewModel = viewModel,

@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.support.calculateLuminance
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.transaction.PayloadType
 import com.chuckerteam.chucker.internal.ui.transaction.TransactionBodyAdapter
 import com.chuckerteam.chucker.internal.ui.transaction.TransactionPayloadItem
@@ -82,7 +83,7 @@ internal fun TransactionPayloadScreen(
                         if (payloadType == PayloadType.RESPONSE) R.string.chucker_response_is_empty
                         else R.string.chucker_request_is_empty
                     ),
-                    style = MaterialTheme.typography.titleMedium
+                    style = AppTheme.typography.titleMedium
                 )
             }
 
@@ -99,7 +100,7 @@ internal fun TransactionPayloadScreen(
                             Text(
                                 text = searchSummaryText,
                                 color = colorResource(id = R.color.chucker_color_on_primary),
-                                style = MaterialTheme.typography.bodyMedium,
+                                style = AppTheme.typography.bodyMedium,
                                 modifier = Modifier.weight(1f)
                             )
                             IconButton(onClick = { /* scroll up logic */ }) {
@@ -191,7 +192,7 @@ private suspend fun processPayload(
 private fun TransactionPayloadScreenPreview(
     @PreviewParameter(TransactionPreviewProvider::class) transaction: HttpTransaction
 ) {
-    MaterialTheme {
+    AppTheme {
         TransactionPayloadScreen(
             payloadType = PayloadType.REQUEST,
             transaction = transaction,

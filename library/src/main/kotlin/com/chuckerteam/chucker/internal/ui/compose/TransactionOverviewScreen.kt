@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -74,12 +74,12 @@ private fun OverviewRow(label: Int, value: String?, modifier: Modifier = Modifie
     ) {
         Text(
             text = stringResource(id = label),
-            style = MaterialTheme.typography.labelLarge,
+            style = AppTheme.typography.labelLarge,
             modifier = Modifier.weight(0.28f)
         )
         Text(
             text = value ?: "",
-            style = MaterialTheme.typography.bodyMedium,
+            style = AppTheme.typography.bodyMedium,
             maxLines = 4,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier.weight(0.72f)
@@ -92,7 +92,7 @@ private fun OverviewRow(label: Int, value: String?, modifier: Modifier = Modifie
 private fun TransactionOverviewScreenPreview(
     @PreviewParameter(TransactionPreviewProvider::class) transaction: HttpTransaction
 ) {
-    MaterialTheme {
+    AppTheme {
         TransactionOverviewScreen(transaction, encodeUrl = false)
     }
 }

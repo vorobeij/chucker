@@ -21,7 +21,6 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
@@ -51,6 +50,7 @@ import com.chuckerteam.chucker.internal.support.shareAsUtf8Text
 import com.chuckerteam.chucker.internal.ui.BaseChuckerActivity
 import com.chuckerteam.chucker.internal.ui.compose.TransactionOverviewScreen
 import com.chuckerteam.chucker.internal.ui.compose.TransactionPayloadScreen
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.transaction.PayloadType
 import com.chuckerteam.chucker.internal.ui.transaction.TransactionViewModel
 import com.chuckerteam.chucker.internal.ui.transaction.TransactionViewModelFactory
@@ -68,7 +68,7 @@ internal class TransactionActivity : BaseChuckerActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MaterialTheme {
+            AppTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     var encodeUrl by remember { mutableStateOf(false) }
                     var transactionTitle by remember { mutableStateOf("") }

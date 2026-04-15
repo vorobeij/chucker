@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +30,7 @@ import com.chuckerteam.chucker.R
 internal fun HeaderItem(headers: Spanned, modifier: Modifier = Modifier) {
     Text(
         text = headers.toString(),
-        style = MaterialTheme.typography.bodyMedium,
+        style = AppTheme.typography.bodyMedium,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(id = R.dimen.chucker_doub_grid)),
@@ -41,7 +42,7 @@ internal fun BodyLineItem(line: SpannableStringBuilder, modifier: Modifier = Mod
     Text(
         text = line.toString(),
         fontFamily = FontFamily.Monospace,
-        style = MaterialTheme.typography.bodySmall,
+        style = AppTheme.typography.bodySmall,
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(id = R.dimen.chucker_doub_grid))
@@ -72,7 +73,7 @@ internal fun ImageItem(image: Bitmap, luminance: Double?, modifier: Modifier = M
 @Preview(showBackground = true)
 @Composable
 private fun PayloadItemsPreview() {
-    MaterialTheme {
+    AppTheme {
         Column(modifier = Modifier.padding(16.dp)) {
             HeaderItem(headers = SpannableString("Content-Type: application/json"))
             BodyLineItem(line = SpannableStringBuilder("{\"status\": \"ok\"}"))

@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import com.chuckerteam.chucker.R
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +58,7 @@ internal fun ChuckerTopAppBar(
                     Text(stringResource(R.string.chucker_network_tutorial))
                     Text(
                         text = applicationName,
-                        style = MaterialTheme.typography.titleSmall,
+                        style = AppTheme.typography.titleSmall,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

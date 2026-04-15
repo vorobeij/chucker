@@ -57,7 +57,6 @@ internal fun ChuckerMainScreen(
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // ✅ HttpTransactionTuple is a single object, not a Pair
                 items(transactions, key = { it.id }) { transaction ->
                     TransactionListItem(
                         transaction = transaction,

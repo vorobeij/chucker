@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.transaction.ProtocolResources
 
 @Composable
@@ -60,7 +61,7 @@ internal fun TransactionListItem(
             // Status code
             Text(
                 text = transaction.responseCode?.toString() ?: if (transaction.status === HttpTransaction.Status.Failed) "!!!" else "",
-                style = MaterialTheme.typography.bodyLarge,
+                style = AppTheme.typography.bodyLarge,
                 color = Color(statusCodeColor),
                 modifier = Modifier
                     .width(dimensionResource(id = R.dimen.chucker_item_size))
@@ -71,7 +72,7 @@ internal fun TransactionListItem(
                 // Method + Path
                 Text(
                     text = "${transaction.method} ${transaction.path}",
-                    style = MaterialTheme.typography.bodyLarge,
+                    style = AppTheme.typography.bodyLarge,
                     color = Color(statusCodeColor),
                     maxLines = 4,
                     overflow = TextOverflow.Ellipsis
@@ -87,7 +88,7 @@ internal fun TransactionListItem(
                         )
                         Text(
                             text = transaction.graphQlOperationName ?: stringResource(id = R.string.chucker_graphql_operation_is_empty),
-                            style = MaterialTheme.typography.bodyMedium,
+                            style = AppTheme.typography.bodyMedium,
                             maxLines = 2,
                             overflow = TextOverflow.Ellipsis,
                             modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
@@ -106,7 +107,7 @@ internal fun TransactionListItem(
                     )
                     Text(
                         text = transaction.host.orEmpty(),
-                        style = MaterialTheme.typography.bodyMedium,
+                        style = AppTheme.typography.bodyMedium,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
@@ -121,11 +122,11 @@ internal fun TransactionListItem(
                 ) {
                     Text(
                         text = DateFormat.getTimeFormat(context).format(transaction.requestDate),
-                        style = MaterialTheme.typography.bodySmall
+                        style = AppTheme.typography.bodySmall
                     )
                     if (transaction.status === HttpTransaction.Status.Complete) {
-                        Text(text = transaction.tookMs?.let { "$it ms" }.orEmpty(), style = MaterialTheme.typography.bodySmall)
-                        Text(text = transaction.totalSizeString.orEmpty(), style = MaterialTheme.typography.bodySmall)
+                        Text(text = transaction.tookMs?.let { "$it ms" }.orEmpty(), style = AppTheme.typography.bodySmall)
+                        Text(text = transaction.totalSizeString.orEmpty(), style = AppTheme.typography.bodySmall)
                     }
                 }
             }
@@ -138,7 +139,7 @@ internal fun TransactionListItem(
 private fun TransactionListItemPreview(
     @PreviewParameter(TransactionTuplePreviewProvider::class) transaction: HttpTransactionTuple
 ) {
-    MaterialTheme {
+    AppTheme {
         TransactionListItem(transaction, onClick = {})
     }
 }

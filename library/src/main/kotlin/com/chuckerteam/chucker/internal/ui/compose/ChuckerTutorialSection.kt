@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.MaterialTheme
+import com.chuckerteam.chucker.internal.ui.compose.theme.AppTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,12 +36,12 @@ internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = stringResource(R.string.chucker_setup),
-            style = MaterialTheme.typography.titleLarge,
+            style = AppTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         Text(
             text = stringResource(R.string.chucker_network_tutorial),
-            style = MaterialTheme.typography.bodyMedium,
+            style = AppTheme.typography.bodyMedium,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         val annotatedString = buildAnnotatedString {
@@ -52,7 +52,7 @@ internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
             if (startIndex >= 0) {
                 addStyle(
                     style = SpanStyle(
-                        color = MaterialTheme.colorScheme.primary,
+                        color = AppTheme.colorScheme.primary,
                         textDecoration = TextDecoration.Underline
                     ),
                     start = startIndex,
@@ -69,7 +69,7 @@ internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
 
         ClickableText(
             text = annotatedString,
-            style = MaterialTheme.typography.bodyMedium.copy(color = MaterialTheme.colorScheme.onSurface),
+            style = AppTheme.typography.bodyMedium.copy(color = AppTheme.colorScheme.onSurface),
             onClick = { offset ->
                 annotatedString.getStringAnnotations(tag = "URL", start = offset, end = offset)
                     .firstOrNull()?.let { annotation ->
@@ -86,7 +86,7 @@ internal fun ChuckerTutorialSection(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 private fun ChuckerTutorialSectionPreview() {
-    MaterialTheme {
+    AppTheme {
         ChuckerTutorialSection()
     }
 }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.devtools.ksp'
-apply plugin: 'org.jetbrains.kotlin.plugin.compose' // ✅ ADD THIS LINE
+apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 android {
     compileSdk rootProject.compileSdkVersion
