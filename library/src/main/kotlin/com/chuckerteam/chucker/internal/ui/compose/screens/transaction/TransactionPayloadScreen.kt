@@ -44,9 +44,6 @@ internal fun TransactionPayloadScreen(
     var showEmptyState by remember { mutableStateOf(false) }
     var showSearchSummary by remember { mutableStateOf(false) }
     var searchSummaryText by remember { mutableStateOf("") }
-    var searchScrollIndex by remember { mutableStateOf(-1) }
-    var searchIndices by remember { mutableStateOf(listOf<TransactionBodyAdapter.SearchItemBodyLine>()) }
-    var currentQuery by remember { mutableStateOf("") }
 
     // Load data
     LaunchedEffect(transaction, payloadType, formatRequestBody) {

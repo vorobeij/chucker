@@ -189,7 +189,6 @@ This change also allows to avoid problems with Chucker consuming responses, like
 * Added ability to encode/decode URLs.
 * Added RTL support.
 * Switched from AsyncTasks to Kotlin coroutines.
-* Switched to [ViewBinding](https://developer.android.com/topic/libraries/view-binding).
 * Bumped targetSDK to 29.
 * Greatly increased test coverage (we will add exact numbers and reports pretty soon).
 
