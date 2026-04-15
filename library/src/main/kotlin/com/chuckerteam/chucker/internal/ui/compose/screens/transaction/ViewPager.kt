@@ -30,7 +30,7 @@ internal fun ViewPager(
     transaction: HttpTransaction,
     formatRequestBody: Boolean
 ) {
-    Column(modifier = Modifier.Companion.padding(padding)) {
+    Column(modifier = Modifier.padding(padding)) {
         TabRow(selectedTabIndex = pagerState.currentPage) {
             tabs.forEachIndexed { index, title ->
                 Tab(
@@ -45,7 +45,7 @@ internal fun ViewPager(
                 0 -> TransactionOverviewScreen(
                     transaction = transaction,
                     encodeUrl = encodeUrl,
-                    modifier = Modifier.Companion.fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 )
 
                 1 -> TransactionPayloadScreen(
@@ -53,7 +53,7 @@ internal fun ViewPager(
                     transaction = transaction,
                     formatRequestBody = formatRequestBody,
                     onSaveToFile = {},
-                    modifier = Modifier.Companion.fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 )
 
                 2 -> TransactionPayloadScreen(
@@ -61,7 +61,7 @@ internal fun ViewPager(
                     transaction = transaction,
                     formatRequestBody = true,
                     onSaveToFile = {},
-                    modifier = Modifier.Companion.fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 )
             }
         }

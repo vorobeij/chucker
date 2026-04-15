@@ -18,6 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.design.system.theme.AppPreview
@@ -33,7 +34,7 @@ internal fun TransactionOverviewScreen(
         modifier = modifier
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
-            .padding(dimensionResource(id = R.dimen.chucker_doub_grid))
+            .padding(16.dp)
     ) {
         OverviewRow(label = R.string.chucker_url, value = transaction.getFormattedUrl(encodeUrl))
         OverviewRow(label = R.string.chucker_method, value = transaction.method)

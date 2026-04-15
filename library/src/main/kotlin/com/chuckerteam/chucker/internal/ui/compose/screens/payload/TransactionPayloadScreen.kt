@@ -1,9 +1,8 @@
 package com.chuckerteam.chucker.internal.ui.compose.screens.payload
 
 import android.content.Context
+import android.text.Html.fromHtml
 import android.text.SpannableStringBuilder
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,8 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
-import com.chuckerteam.chucker.internal.ui.compose.screens.payload.PayloadType
-import com.chuckerteam.chucker.internal.ui.compose.screens.payload.TransactionPayloadItem
+import com.chuckerteam.chucker.internal.support.calculateLuminance
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenEmpty
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenLoading
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.states.TransactionPayloadScreenSuccess
@@ -38,7 +36,6 @@ internal fun TransactionPayloadScreen(
     var showSearchSummary by remember { mutableStateOf(false) }
     var searchSummaryText by remember { mutableStateOf("") }
 
-    // Load data
     LaunchedEffect(transaction, payloadType, formatRequestBody) {
         isLoading = true
         delay(100) // Simulate async work matching original coroutine dispatch
@@ -48,16 +45,14 @@ internal fun TransactionPayloadScreen(
         isLoading = false
     }
 
-    Box(modifier = modifier.fillMaxSize()) {
-        when {
-            isLoading -> TransactionPayloadScreenLoading()
-            showEmptyState -> TransactionPayloadScreenEmpty(payloadType)
-            else -> TransactionPayloadScreenSuccess(showSearchSummary, searchSummaryText, items)
-        }
+    when {
+        isLoading -> TransactionPayloadScreenLoading()
+        showEmptyState -> TransactionPayloadScreenEmpty(payloadType)
+        else -> TransactionPayloadScreenSuccess(showSearchSummary, searchSummaryText, items)
     }
 }
 
-private suspend fun processPayload(
+private  fun processPayload(
     type: PayloadType,
     transaction: HttpTransaction?,
     formatRequestBody: Boolean,
@@ -72,15 +67,13 @@ private suspend fun processPayload(
         transaction.getResponseHeadersString(true)
     }
     if (headersString.isNotBlank()) {
-        // todo
-//        result.add(TransactionPayloadItem.HeaderItem(android.text.Html.fromHtml(headersString, android.text.Html.FROM_HTML_MODE_LEGACY)))
+        result.add(TransactionPayloadItem.HeaderItem(fromHtml(headersString, android.text.Html.FROM_HTML_MODE_LEGACY)))
     }
 
-    if (type == PayloadType.RESPONSE && transaction.responseImageBitmap != null) {
-        // todo
+//    if (type == PayloadType.RESPONSE && transaction.responseImageBitmap != null) {
 //        result.add(TransactionPayloadItem.ImageItem(transaction.responseImageBitmap, transaction.responseImageBitmap?.calculateLuminance()))
-        return result
-    }
+//        return result
+//    }
 
     val bodyString = when {
         type == PayloadType.REQUEST && formatRequestBody -> transaction.getSpannedRequestBody(context)
