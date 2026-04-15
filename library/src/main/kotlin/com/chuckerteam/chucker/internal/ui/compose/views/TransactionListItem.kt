@@ -1,10 +1,20 @@
 package com.chuckerteam.chucker.internal.ui.compose.views
 
+import android.R.attr.maxLines
+import android.content.Context
 import android.text.format.DateFormat
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
@@ -35,15 +46,7 @@ internal fun TransactionListItem(
 ) {
     val context = LocalContext.current
     val statusCodeColor = remember(transaction.status, transaction.responseCode) {
-        when {
-            transaction.status === HttpTransaction.Status.Failed -> ContextCompat.getColor(context, R.color.chucker_status_error)
-            transaction.status === HttpTransaction.Status.Requested -> ContextCompat.getColor(context, R.color.chucker_status_requested)
-            transaction.responseCode == null -> ContextCompat.getColor(context, R.color.chucker_status_default)
-            transaction.responseCode!! >= 500 -> ContextCompat.getColor(context, R.color.chucker_status_500)
-            transaction.responseCode!! >= 400 -> ContextCompat.getColor(context, R.color.chucker_status_400)
-            transaction.responseCode!! >= 300 -> ContextCompat.getColor(context, R.color.chucker_status_300)
-            else -> ContextCompat.getColor(context, R.color.chucker_status_default)
-        }
+        transaction.statusCodeColor(context)
     }
 
     Card(
@@ -58,90 +61,132 @@ internal fun TransactionListItem(
                 .padding(dimensionResource(id = R.dimen.chucker_base_grid)),
             verticalAlignment = Alignment.Top
         ) {
-            // Status code
-            Text(
-                text = transaction.responseCode?.toString() ?: if (transaction.status === HttpTransaction.Status.Failed) "!!!" else "",
-                style = AppTheme.typography.bodyLarge,
-                color = Color(statusCodeColor),
-                modifier = Modifier
-                    .width(dimensionResource(id = R.dimen.chucker_item_size))
-                    .padding(end = dimensionResource(id = R.dimen.chucker_doub_grid))
-            )
+            StatusCode(transaction, statusCodeColor)
 
-            Column(modifier = Modifier.weight(1f)) {
-                // Method + Path
-                Text(
-                    text = "${transaction.method} ${transaction.path}",
-                    style = AppTheme.typography.bodyLarge,
-                    color = Color(statusCodeColor),
-                    maxLines = 4,
-                    overflow = TextOverflow.Ellipsis
-                )
-
-                // GraphQL info
-                if (transaction.graphQlDetected) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = painterResource(id = R.drawable.chucker_ic_graphql),
-                            contentDescription = stringResource(id = R.string.chucker_ssl),
-                            modifier = Modifier.size(dimensionResource(id = R.dimen.chucker_doub_grid))
-                        )
-                        Text(
-                            text = transaction.graphQlOperationName ?: stringResource(id = R.string.chucker_graphql_operation_is_empty),
-                            style = AppTheme.typography.bodyMedium,
-                            color = AppTheme.colorScheme.onBackground,
-                            maxLines = 2,
-                            overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
-                        )
-                    }
-                }
-
-                // Host + SSL
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    val protocolRes = if (transaction.isSsl) ProtocolResources.Https() else ProtocolResources.Http()
-                    Image(
-                        painter = painterResource(id = protocolRes.icon),
-                        contentDescription = stringResource(id = R.string.chucker_ssl),
-                        colorFilter = ColorFilter.tint(colorResource(id = protocolRes.color)),
-                        modifier = Modifier.size(dimensionResource(id = R.dimen.chucker_doub_grid))
-                    )
-                    Text(
-                        text = transaction.host.orEmpty(),
-                        style = AppTheme.typography.bodyMedium,
-                        color = AppTheme.colorScheme.onBackground,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
-                    )
-                }
-
-                // Footer: time, duration, size
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = DateFormat.getTimeFormat(context).format(transaction.requestDate),
-                        style = AppTheme.typography.bodySmall,
-                        color = AppTheme.colorScheme.onBackground,
-                    )
-                    if (transaction.status === HttpTransaction.Status.Complete) {
-                        Text(
-                            text = transaction.tookMs?.let { "$it ms" }.orEmpty(),
-                            color = AppTheme.colorScheme.onBackground,
-                            style = AppTheme.typography.bodySmall
-                        )
-                        Text(
-                            text = transaction.totalSizeString.orEmpty(),
-                            color = AppTheme.colorScheme.onBackground,
-                            style = AppTheme.typography.bodySmall
-                        )
-                    }
-                }
+            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                MethodAndPath(transaction, statusCodeColor)
+                GQLInfo(transaction)
+                HostAndSsl(transaction)
+                TimeDurationSize(context, transaction)
             }
         }
+    }
+}
+
+@Composable
+private fun TimeDurationSize(context: Context, transaction: HttpTransactionTuple) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = DateFormat.getTimeFormat(context).format(transaction.requestDate),
+            style = AppTheme.typography.bodySmall,
+            color = AppTheme.colorScheme.onBackground,
+        )
+        if (transaction.status === HttpTransaction.Status.Complete) {
+            Text(
+                text = transaction.tookMs?.let { "$it ms" }.orEmpty(),
+                color = AppTheme.colorScheme.onBackground,
+                style = AppTheme.typography.bodySmall
+            )
+            Text(
+                text = transaction.totalSizeString.orEmpty(),
+                color = AppTheme.colorScheme.onBackground,
+                style = AppTheme.typography.bodySmall
+            )
+        }
+    }
+}
+
+@Composable
+private fun HostAndSsl(transaction: HttpTransactionTuple) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        val protocolRes = if (transaction.isSsl) ProtocolResources.Https() else ProtocolResources.Http()
+        Image(
+            painter = painterResource(id = protocolRes.icon),
+            contentDescription = stringResource(id = R.string.chucker_ssl),
+            colorFilter = ColorFilter.tint(colorResource(id = protocolRes.color)),
+            modifier = Modifier.size(dimensionResource(id = R.dimen.chucker_doub_grid))
+        )
+        Text(
+            text = transaction.host.orEmpty(),
+            style = AppTheme.typography.bodyMedium,
+            color = AppTheme.colorScheme.onBackground,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
+        )
+    }
+}
+
+@Composable
+private fun MethodAndPath(transaction: HttpTransactionTuple, statusCodeColor: Int) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "${transaction.method}",
+            style = AppTheme.typography.bodyLarge,
+            color = Color(statusCodeColor),
+            maxLines = 4,
+            overflow = TextOverflow.Ellipsis
+        )
+        Text(
+            text = transaction.path.toString(),
+            style = AppTheme.typography.labelMedium,
+            color = Color(statusCodeColor),
+            maxLines = 4,
+            overflow = TextOverflow.Ellipsis
+        )
+    }
+}
+
+@Composable
+private fun GQLInfo(transaction: HttpTransactionTuple) {
+    if (transaction.graphQlDetected) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.chucker_ic_graphql),
+                contentDescription = stringResource(id = R.string.chucker_ssl),
+                modifier = Modifier.size(dimensionResource(id = R.dimen.chucker_doub_grid))
+            )
+            Text(
+                text = transaction.graphQlOperationName ?: stringResource(id = R.string.chucker_graphql_operation_is_empty),
+                style = AppTheme.typography.bodyMedium,
+                color = AppTheme.colorScheme.onBackground,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis,
+                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.chucker_half_grid))
+            )
+        }
+    }
+}
+
+@Composable
+private fun StatusCode(transaction: HttpTransactionTuple, statusCodeColor: Int) {
+    Text(
+        text = transaction.responseCode?.toString() ?: if (transaction.status === HttpTransaction.Status.Failed) "!!!" else "",
+        style = AppTheme.typography.bodyLarge,
+        color = Color(statusCodeColor),
+        modifier = Modifier
+            .width(dimensionResource(id = R.dimen.chucker_item_size))
+            .padding(end = dimensionResource(id = R.dimen.chucker_doub_grid))
+    )
+}
+
+private fun HttpTransactionTuple.statusCodeColor(context: Context): Int {
+    val transaction = this
+    return when {
+        transaction.status === HttpTransaction.Status.Failed -> ContextCompat.getColor(context, R.color.chucker_status_error)
+        transaction.status === HttpTransaction.Status.Requested -> ContextCompat.getColor(context, R.color.chucker_status_requested)
+        transaction.responseCode == null -> ContextCompat.getColor(context, R.color.chucker_status_default)
+        transaction.responseCode!! >= 500 -> ContextCompat.getColor(context, R.color.chucker_status_500)
+        transaction.responseCode!! >= 400 -> ContextCompat.getColor(context, R.color.chucker_status_400)
+        transaction.responseCode!! >= 300 -> ContextCompat.getColor(context, R.color.chucker_status_300)
+        else -> ContextCompat.getColor(context, R.color.chucker_status_default)
     }
 }
 

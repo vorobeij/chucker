@@ -26,7 +26,6 @@ import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 import com.chuckerteam.chucker.internal.ui.compose.views.BodyLineItem
 import com.chuckerteam.chucker.internal.ui.compose.views.HeaderItem
-import com.chuckerteam.chucker.internal.ui.compose.views.ImageItem
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -123,7 +122,6 @@ internal fun TransactionPayloadScreen(
                     when (item) {
                         is TransactionPayloadItem.HeaderItem -> HeaderItem(item.headers)
                         is TransactionPayloadItem.BodyLineItem -> BodyLineItem(item.line)
-                        is TransactionPayloadItem.ImageItem -> ImageItem(item.image, item.luminance)
                     }
                 }
             }

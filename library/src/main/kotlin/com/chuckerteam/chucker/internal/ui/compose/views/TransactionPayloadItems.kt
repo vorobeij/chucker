@@ -50,28 +50,6 @@ internal fun BodyLineItem(line: SpannableStringBuilder, modifier: Modifier = Mod
     )
 }
 
-// todo do not use bitmap!!!
-@Composable
-internal fun ImageItem(image: Bitmap, luminance: Double?, modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(dimensionResource(id = R.dimen.chucker_doub_grid)),
-        contentAlignment = Alignment.Center
-    ) {
-        Surface(
-            shape = RoundedCornerShape(8.dp),
-            shadowElevation = 4.dp
-        ) {
-            Image(
-                bitmap = image.asImageBitmap(),
-                contentDescription = stringResource(id = R.string.chucker_binary_data),
-                modifier = Modifier.clip(RoundedCornerShape(8.dp))
-            )
-        }
-    }
-}
-
 @AppPreview
 @Composable
 private fun PayloadItemsPreview() {
