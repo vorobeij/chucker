@@ -145,16 +145,6 @@ private fun MyJsonTree(
         },
         icon = Icons.AutoMirrored.Filled.KeyboardArrowRight,
         showIndices = true,
-        colors = TreeColors(
-            keyColor = Color(0xFF1F9E8F),
-            stringValueColor = Color(0xFFE9613F),
-            numberValueColor = Color(0xFFF7964A),
-            booleanValueColor = Color(0xFFE9BB4D),
-            nullValueColor = Color(0xFFE9BB4D),
-            indexColor = Color(0x991D4555),
-            symbolColor = Color(0xFF1D4555),
-            iconColor = Color(0xFF1D4555),
-        ),
         textStyle = AppTheme.typography.bodyLarge,
         onError = { it.printStackTrace() },
         modifier = Modifier

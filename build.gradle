@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.apollo) apply false
+//    alias(libs.plugins.apollo) apply false
     alias(libs.plugins.detekt) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.binary.compatibility.validator) apply false
@@ -28,17 +28,31 @@ apiValidation {
         "com.chuckerteam.chucker.databinding"
     ]
 }
-
 def isNonStable(String version) {
-    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { kw -> version.toUpperCase().contains(kw) }
-    def regex = /^[0-9,.v-]+(-r)?$/
-    return !stableKeyword && !(version ==~ regex)
+    def stableKeywords = ['RELEASE', 'FINAL', 'GA', 'STABLE'].any { kw ->
+        version.toUpperCase().contains(kw)
+    }
+
+    def unstableKeywords = ['SNAPSHOT', 'ALPHA', 'BETA', 'RC', 'CR', 'DEV', 'PREVIEW', 'MILESTONE'].any { kw ->
+        version.toUpperCase().contains(kw)
+    }
+
+    def numericRegex = /^[0-9]+(\.[0-9]+)*(-[0-9]+)?$/
+
+    def preReleaseRegex = /(?i).*-(alpha|a|beta|b|rc|cr|dev|preview|milestone|m)\d*$/
+
+    return unstableKeywords ||
+        (!stableKeywords && !(version ==~ numericRegex) && version ==~ preReleaseRegex)
 }
 
 versionCatalogUpdate {
     versionSelector {
-        !(it.candidate.version.contains('SNAPSHOT') || it.candidate.version.contains('ALPHA'))
+        !isNonStable(it.candidate.version)
     }
+//    // https://github.com/littlerobots/version-catalog-update-plugin
+//    pin {
+//        versions = ["androidGradle"]
+//    }
 }
 
 allprojects {
@@ -52,10 +66,19 @@ allprojects {
     }
 
     apply plugin: VersionsPlugin
+
     tasks.named("dependencyUpdates").configure {
         rejectVersionIf {
-            isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+            isNonStable(it.candidate.version)
         }
+
+//        // Optional: Also reject versions with specific patterns globally
+//        componentSelection { all ->
+//            String candidate = it.candidate.version
+//            if (isNonStable(candidate)) {
+//                it.reject("Release candidate")
+//            }
+//        }
     }
 }
 
@@ -72,8 +95,8 @@ task clean(type: Delete) {
 
 ext {
     minSdkVersion = 24
-    targetSdkVersion = 35
-    compileSdkVersion = 35
+    targetSdkVersion = 36
+    compileSdkVersion = 36
 }
 
 nexusStaging {

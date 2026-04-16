@@ -10,7 +10,6 @@ import com.chuckerteam.chucker.api.Chucker
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ExportFormat
 import com.chuckerteam.chucker.sample.databinding.ActivityMainSampleBinding
-import com.chuckerteam.chucker.sample.tasks.GraphQlTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         createOkHttpClient(applicationContext, interceptorTypeSelector)
     }
 
-    private val httpTasks by lazy{
+    private val httpTasks by lazy {
         HttpTasksRunner(client)
     }
 
@@ -40,7 +39,8 @@ class MainActivity : AppCompatActivity() {
                 httpTasks.run()
             }
             doGraphql.setOnClickListener {
-                GraphQlTask(client).run()
+                Toast.makeText(this@MainActivity, "", Toast.LENGTH_SHORT).show()
+//                GraphQlTask(client).run()
             }
 
             launchChuckerDirectly.isVisible = Chucker.isOp

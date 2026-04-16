@@ -1,11 +1,28 @@
 apply plugin: libs.plugins.android.application.get().pluginId
 apply plugin: libs.plugins.kotlin.android.get().pluginId
 apply plugin: libs.plugins.wire.get().pluginId
-apply plugin: libs.plugins.apollo.get().pluginId
+//apply plugin: libs.plugins.apollo.get().pluginId
 
 wire {
-    kotlin {}
+    kotlin {
+        // ✅ Explicitly set output directory compatible with AGP
+        out = "build/generated/source/wire"
+    }
+    // ✅ Specify proto source location if not in default src/main/proto
+    sourcePath {
+        srcDir "src/main/proto"
+    }
 }
+
+//apollo {
+//    service("rickandmortyapi") {
+//        packageName.set("com.chuckerteam.chucker.sample")
+//        schemaFile.set(file("src/main/graphql/com/chuckerteam/chucker/sample/schema.json.graphql"))
+//        srcDir("src/main/graphql")
+//        excludes.add("**/schema.json.graphql")
+//        excludes.add("**/schema.json")
+//    }
+//}
 
 android {
     compileSdk rootProject.compileSdkVersion
@@ -58,18 +75,29 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
-    kotlin {
-        jvmToolchain(11)
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
-}
 
-apollo {
-    service("rickandmortyapi") {
-        packageName.set("com.chuckerteam.chucker.sample")
-        schemaFile.set(file("src/main/graphql/com/chuckerteam/chucker/sample/schema.json.graphql"))
-        srcDir("src/main/graphql")
-        excludes.add("**/schema.json.graphql")
-        excludes.add("**/schema.json")
+    // ✅ Explicitly configure source sets for Wire-generated code
+    sourceSets {
+        main {
+            java.srcDir "build/generated/source/wire/debug"
+//            java.srcDir "build/generated/apollo_sources/debug/rickandmortyapi"
+        }
+    }
+
+    packaging {
+        resources {
+            excludes += 'META-INF/versions/9/OSGI-INF/MANIFEST.MF'
+            // Optional: Exclude other common duplicates
+            excludes += 'META-INF/DEPENDENCIES'
+            excludes += 'META-INF/LICENSE*'
+            excludes += 'META-INF/NOTICE*'
+            excludes += 'META-INF/*.kotlin_module'
+        }
     }
 }
 
@@ -89,7 +117,7 @@ dependencies {
     implementation libs.retrofit
     implementation libs.retrofit.converter.gson
 
-    implementation libs.apollo.runtime
+//    implementation libs.apollo.runtime
 
     debugImplementation libs.leakcanary.android
 }
