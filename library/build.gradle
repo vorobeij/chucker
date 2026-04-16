@@ -1,8 +1,10 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'com.google.devtools.ksp'
-apply plugin: 'org.jetbrains.kotlin.plugin.compose'
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.compose)
+}
 
 android {
     compileSdk rootProject.compileSdkVersion
@@ -39,9 +41,7 @@ android {
     lintOptions {
         warningsAsErrors true
         abortOnError true
-        // We don't want to impose RTL on consuming applications.
         disable 'RtlEnabled'
-        // Don't fail build if some dependencies outdated
         disable 'GradleDependency'
     }
 
@@ -65,66 +65,64 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation libs.kotlin.stdlib
 
-    def composeBom = platform('androidx.compose:compose-bom:2026.03.01')
-    implementation composeBom
-    androidTestImplementation composeBom
+    // Compose BOM
+    implementation platform(libs.androidx.compose.bom)
+    androidTestImplementation platform(libs.androidx.compose.bom)
 
-    implementation 'androidx.compose.ui:ui'
-    implementation 'androidx.compose.ui:ui-graphics'
-    implementation 'androidx.compose.ui:ui-tooling-preview'
-    implementation 'androidx.compose.material3:material3'
-    implementation 'androidx.activity:activity-compose:1.9.0'
-    debugImplementation 'androidx.compose.ui:ui-tooling'
-    debugImplementation 'androidx.compose.ui:ui-test-manifest'
-    implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion"
-    implementation "androidx.compose.runtime:runtime-livedata"
-    implementation "androidx.compose.ui:ui-text"
+    // Compose UI
+    implementation libs.androidx.compose.ui
+    implementation libs.androidx.compose.ui.graphics
+    implementation libs.androidx.compose.ui.tooling.preview
+    implementation libs.androidx.compose.material3
+    implementation libs.androidx.activity.compose
+    debugImplementation libs.androidx.compose.ui.tooling
+    debugImplementation libs.androidx.compose.ui.test.manifest
+    implementation libs.androidx.lifecycle.runtime.compose
+    implementation libs.androidx.compose.runtime.livedata
+    implementation libs.androidx.compose.ui.text
+    implementation libs.androidx.compose.material.icons.core
 
-    implementation "com.google.android.material:material:$materialComponentsVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation "androidx.palette:palette-ktx:$paletteKtxVersion"
+    // Material/Layout
+    implementation libs.google.material
+    implementation libs.androidx.constraintlayout
+    implementation libs.androidx.palette.ktx
 
-    implementation "androidx.activity:activity-ktx:$activityVersion"
-    implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
-    implementation "androidx.room:room-ktx:$roomVersion"
-    implementation "androidx.room:room-runtime:$roomVersion"
-    ksp "androidx.room:room-compiler:$roomVersion"
+    // AndroidX Core
+    implementation libs.androidx.activity.ktx
+    implementation libs.androidx.fragment.ktx
+    implementation libs.bundles.lifecycle
+    implementation libs.bundles.room
+    ksp libs.androidx.room.compiler
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineVersion"
+    // Coroutines
+    implementation libs.bundles.coroutines
 
-    implementation "com.google.code.gson:gson:$gsonVersion"
-
-    implementation "org.brotli:dec:$brotliVersion"
-
-    implementation("com.sebastianneubauer.jsontree:jsontree:2.3.0")
-    implementation "androidx.compose.material:material-icons-core"
+    // JSON/Networking
+    implementation libs.google.gson
+    implementation libs.brotli.dec
+    implementation libs.jsontree
     implementation project(":design-system")
 
-    api platform("com.squareup.okhttp3:okhttp-bom:$okhttpVersion")
-    api "com.squareup.okhttp3:okhttp"
-    testImplementation "com.squareup.okhttp3:mockwebserver"
+    api platform(libs.okhttp.bom)
+    api libs.okhttp
+    testImplementation libs.okhttp.mockwebserver
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testImplementation "junit:junit:$junit4Version"
-    testRuntimeOnly "org.junit.vintage:junit-vintage-engine:$junitVersion"
-    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
-    testImplementation "io.mockk:mockk:$mockkVersion"
-    testImplementation "androidx.test:core:$androidxTestCoreVersion"
-    testImplementation "androidx.arch.core:core-testing:$androidXCoreVersion"
-    testImplementation "com.google.truth:truth:$truthVersion"
-    testImplementation "org.robolectric:robolectric:$robolectricVersion"
+    // Testing - Unit
+    testImplementation libs.bundles.testing.junit5
+    testImplementation libs.mockk
+    testImplementation libs.androidx.test.core
+    testImplementation libs.androidx.core.testing
+    testImplementation libs.truth
+    testImplementation libs.robolectric
 
-    androidTestImplementation "junit:junit:$junit4Version"
-    androidTestImplementation "androidx.test:runner:$androidXTestRunner"
-    androidTestImplementation "androidx.test:rules:$androidXTestRules"
-    androidTestImplementation "com.google.truth:truth:$truthVersion"
-    androidTestImplementation "androidx.test.ext:junit:$androidXTestExt"
+    // Testing - Android
+    androidTestImplementation libs.junit4
+    androidTestImplementation libs.androidx.test.runner
+    androidTestImplementation libs.androidx.test.rules
+    androidTestImplementation libs.truth
+    androidTestImplementation libs.androidx.test.ext.junit
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

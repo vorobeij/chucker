@@ -1,5 +1,5 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: libs.plugins.android.library.get().pluginId
+apply plugin: libs.plugins.kotlin.android.get().pluginId
 
 android {
     compileSdk rootProject.compileSdkVersion
@@ -29,9 +29,7 @@ android {
     lintOptions {
         warningsAsErrors true
         abortOnError true
-        // We don't want to impose RTL on consuming applications.
         disable 'RtlEnabled'
-        // Don't fail build if some dependencies outdated
         disable 'GradleDependency'
     }
 
@@ -44,8 +42,9 @@ android {
 }
 
 dependencies {
-    api "com.squareup.okhttp3:okhttp:$okhttpVersion"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    api platform(libs.okhttp.bom)
+    api libs.okhttp
+    implementation libs.kotlin.stdlib
 }
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

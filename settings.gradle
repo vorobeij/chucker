@@ -1,5 +1,28 @@
+pluginManagement {
+    repositories {
+        google {
+            content { includeGroupByRegex("com\\.android.*") }
+            content { includeGroupByRegex("androidx\\..*") }
+            content { includeGroupByRegex("com\\.google\\.testing\\..*") }
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
 plugins {
     id 'org.gradle.toolchains.foojay-resolver-convention' version '0.10.0'
 }
+
+dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+
+rootProject.name = "chucker"
+
 include ':sample', ':library', ':library-no-op'
 include ':design-system'

@@ -1,0 +1,175 @@
+[versions]
+# AndroidX
+activity = "1.13.0"
+activityCompose = "1.13.0"
+androidGradle = "9.2.0-rc01"
+androidxTestCore = "1.7.0"
+androidxTestExt = "1.3.0"
+androidxTestRules = "1.7.0"
+androidxTestRunner = "1.7.0"
+# Apollo
+apollo = "4.0.0-beta.7"
+appcompat = "1.8.0-alpha01"
+# Quality/Debug
+binaryCompatibilityValidator = "0.16.3"
+# Networking/JSON
+brotli = "0.1.2"
+# Compose
+composeBom = "2026.03.01"
+constraintlayout = "2.2.1"
+coreTesting = "2.2.0"
+coroutines = "1.11.0-rc01"
+detekt = "1.23.7"
+fragment = "1.8.9"
+gradleVersions = "0.53.0"
+gson = "2.13.2"
+jsontree = "2.6.0"
+junit4 = "4.13.2"
+# Testing
+junit5 = "6.1.0-M1"
+junit5Android = "1.11.2.0"
+# Core
+kotlin = "2.4.0-Beta1"
+ksp = "2.0.21-1.0.26"
+ktlintGradle = "12.1.1"
+leakcanary = "3.0-alpha-8"
+lifecycle = "2.11.0-alpha03"
+# Google/Material
+material = "1.14.0-beta01"
+mockk = "1.14.9"
+# Publishing/Tooling
+nexusStaging = "0.30.0"
+okhttp = "5.3.2"
+paletteKtx = "1.0.0"
+retrofit = "3.0.0"
+robolectric = "4.16.1"
+room = "2.8.4"
+truth = "1.4.5"
+versionCatalogUpdate = "1.1.0"
+wire = "5.1.0"
+
+[libraries]
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+# AndroidX
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+# Compose BOM
+androidx-compose-bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+androidx-compose-material-icons-core = { module = "androidx.compose.material:material-icons-core" }
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+androidx-compose-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata" }
+# Compose libraries (version managed by BOM)
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+androidx-compose-ui-graphics = { module = "androidx.compose.ui:ui-graphics" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+androidx-compose-ui-text = { module = "androidx.compose.ui:ui-text" }
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+androidx-core-testing = { module = "androidx.arch.core:core-testing", version.ref = "coreTesting" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+androidx-palette-ktx = { module = "androidx.palette:palette-ktx", version.ref = "paletteKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx-test-core = { module = "androidx.test:core", version.ref = "androidxTestCore" }
+androidx-test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "androidxTestExt" }
+androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidxTestRules" }
+androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
+# Apollo
+apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
+brotli-dec = { module = "org.brotli:dec", version.ref = "brotli" }
+# Networking/JSON
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+# Google/Material
+google-material = { module = "com.google.android.material:material", version.ref = "material" }
+jsontree = { module = "com.sebastianneubauer.jsontree:jsontree", version.ref = "jsontree" }
+# Testing - JUnit5
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit-jupiter-engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+junit-vintage-engine = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5" }
+junit4 = { module = "junit:junit", version.ref = "junit4" }
+# Kotlin
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+# Coroutines
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+# LeakCanary
+leakcanary-android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+# Testing - Other
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+okhttp = { module = "com.squareup.okhttp3:okhttp" }
+okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp" }
+# OkHttp logging interceptor
+okhttp-logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp" }
+okhttp-mockwebserver = { module = "com.squareup.okhttp3:mockwebserver" }
+# Retrofit
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
+truth = { module = "com.google.truth:truth", version.ref = "truth" }
+
+[bundles]
+compose-debug = [
+    "androidx-compose-ui-test-manifest",
+    "androidx-compose-ui-tooling",
+]
+compose-ui = [
+    "androidx-compose-material-icons-core",
+    "androidx-compose-material3",
+    "androidx-compose-runtime-livedata",
+    "androidx-compose-ui",
+    "androidx-compose-ui-graphics",
+    "androidx-compose-ui-text",
+    "androidx-compose-ui-tooling-preview",
+]
+coroutines = [
+    "kotlinx-coroutines-android",
+    "kotlinx-coroutines-test",
+]
+lifecycle = [
+    "androidx-lifecycle-livedata-ktx",
+    "androidx-lifecycle-runtime-compose",
+    "androidx-lifecycle-viewmodel-ktx",
+]
+room = [
+    "androidx-room-ktx",
+    "androidx-room-runtime",
+]
+testing-android = [
+    "androidx-test-core",
+    "androidx-test-ext-junit",
+    "androidx-test-rules",
+    "androidx-test-runner",
+    "mockk",
+    "robolectric",
+    "truth",
+]
+testing-junit5 = [
+    "junit-jupiter-api",
+    "junit-jupiter-engine",
+    "junit-jupiter-params",
+    "junit-vintage-engine",
+    "junit4",
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradle" }
+android-junit5 = { id = "de.mannodermaus.android-junit5", version.ref = "junit5Android" }
+android-library = { id = "com.android.library", version.ref = "androidGradle" }
+apollo = { id = "com.apollographql.apollo3", version.ref = "apollo" }
+binary-compatibility-validator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "binaryCompatibilityValidator" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+gradle-versions = { id = "com.github.ben-manes.versions", version.ref = "gradleVersions" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
+nexus-staging = { id = "io.codearte.nexus-staging", version.ref = "nexusStaging" }
+version-catalog-update = { id = "nl.littlerobots.version-catalog-update", version.ref = "versionCatalogUpdate" }
+wire = { id = "com.squareup.wire", version.ref = "wire" }

@@ -1,82 +1,25 @@
-buildscript {
-    ext {
-        kotlinVersion = '2.0.21'
-        androidGradleVersion = '8.7.2'
-        coroutineVersion = '1.9.0'
+import com.github.benmanes.gradle.versions.VersionsPlugin
 
-        // Google libraries
-        activityVersion = '1.9.3'
-        appCompatVersion = '1.7.0'
-        constraintLayoutVersion = '2.2.0'
-        materialComponentsVersion = '1.12.0'
-        fragmentVersion = '1.8.5'
-        roomVersion = '2.6.1'
-        lifecycleVersion = '2.8.7'
-        androidXCoreVersion = '2.2.0'
-        paletteKtxVersion = '1.0.0'
-        kspVersion = '2.0.21-1.0.26'
-
-        // Networking
-        brotliVersion = '0.1.2'
-        gsonVersion = '2.11.0'
-        okhttpVersion = '4.12.0'
-        retrofitVersion = '2.11.0'
-        wireVersion = '5.1.0'
-
-        // Debug and quality control
-        binaryCompatibilityValidator = '0.16.3'
-        detektVersion = '1.23.7'
-        ktLintGradleVersion = '12.1.1'
-        leakcanaryVersion = '2.14'
-
-        // Apollo
-        apolloVersion = '3.8.5'
-
-        // Testing
-        androidxTestCoreVersion = '1.6.1'
-        junitGradlePluignVersion = '1.11.2.0'
-        junitVersion = '5.11.3'
-        junit4Version = '4.13.2'
-        mockkVersion = '1.13.13'
-        robolectricVersion = '4.13'
-        truthVersion = '1.4.4'
-        androidXTestRunner = '1.6.2'
-        androidXTestRules = '1.6.1'
-        androidXTestExt = '1.2.1'
-
-        // Publishing
-        nexusStagingPlugin = '0.30.0'
-    }
-
-    repositories {
-        google()
-        gradlePluginPortal()  // ✅ Required for external plugins
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath "com.android.tools.build:gradle:$androidGradleVersion"
-        classpath "de.mannodermaus.gradle.plugins:android-junit5:$junitGradlePluignVersion"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-        classpath "org.jetbrains.kotlin:compose-compiler-gradle-plugin:$kotlinVersion"
-        classpath "com.apollographql.apollo3:apollo-gradle-plugin:$apolloVersion"
-        classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:$detektVersion"
-        classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktLintGradleVersion"
-        classpath "org.jetbrains.kotlinx:binary-compatibility-validator:$binaryCompatibilityValidator"
-        classpath "com.squareup.wire:wire-gradle-plugin:$wireVersion"
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:$nexusStagingPlugin"
-        classpath "com.google.devtools.ksp:symbol-processing-gradle-plugin:$kspVersion"
-
-        // ✅ FIXED: Correct artifact names with -gradle-plugin suffix
-        classpath "com.github.ben-manes:gradle-versions-plugin:0.53.0"
-        classpath "nl.littlerobots.vcu:plugin:1.1.0"
-    }
+plugins {
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
+    alias(libs.plugins.kotlin.kapt) apply false
+    alias(libs.plugins.ksp) apply false
+    alias(libs.plugins.apollo) apply false
+    alias(libs.plugins.detekt) apply false
+    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.binary.compatibility.validator) apply false
+    alias(libs.plugins.wire) apply false
+    alias(libs.plugins.nexus.staging) apply false
+    alias(libs.plugins.android.junit5) apply false
+    alias(libs.plugins.gradle.versions) apply false
+    alias(libs.plugins.version.catalog.update) apply false
 }
 
-// ✅ Apply plugins AFTER classpath is loaded (NO version specifier here)
-apply plugin: 'binary-compatibility-validator'
-apply plugin: 'io.codearte.nexus-staging'
-apply plugin: 'nl.littlerobots.version-catalog-update'
+apply plugin: libs.plugins.binary.compatibility.validator.get().pluginId
+apply plugin: libs.plugins.nexus.staging.get().pluginId
+apply plugin: libs.plugins.version.catalog.update.get().pluginId
 
 apiValidation {
     ignoredProjects += ["sample"]
@@ -86,7 +29,6 @@ apiValidation {
     ]
 }
 
-// Helper to detect unstable versions
 def isNonStable(String version) {
     def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { kw -> version.toUpperCase().contains(kw) }
     def regex = /^[0-9,.v-]+(-r)?$/
@@ -95,8 +37,6 @@ def isNonStable(String version) {
 
 versionCatalogUpdate {
     versionSelector {
-        // here 'it' is a ModuleVersionCandidate that can be used to determine if the version
-        // is allowed, returning true if it is.
         !(it.candidate.version.contains('SNAPSHOT') || it.candidate.version.contains('ALPHA'))
     }
 }
@@ -105,30 +45,24 @@ allprojects {
     version = VERSION_NAME
     group = GROUP
 
-    repositories {
-        google()
-        mavenCentral()
-    }
-
     tasks.withType(Test) {
         testLogging {
             events "skipped", "failed", "passed"
         }
     }
 
-    apply plugin: com.github.benmanes.gradle.versions.VersionsPlugin
+    apply plugin: VersionsPlugin
     tasks.named("dependencyUpdates").configure {
         rejectVersionIf {
             isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
         }
     }
-
 }
 
 task installGitHook(type: Copy) {
     from new File(rootProject.rootDir, 'pre-commit')
     into { new File(rootProject.rootDir, '.git/hooks') }
-    fileMode 0777
+//    fileMode 0777
 }
 
 task clean(type: Delete) {

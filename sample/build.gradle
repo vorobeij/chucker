@@ -1,7 +1,7 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'com.squareup.wire'
-apply plugin: 'com.apollographql.apollo3'
+apply plugin: libs.plugins.android.application.get().pluginId
+apply plugin: libs.plugins.kotlin.android.get().pluginId
+apply plugin: libs.plugins.wire.get().pluginId
+apply plugin: libs.plugins.apollo.get().pluginId
 
 wire {
     kotlin {}
@@ -50,7 +50,6 @@ android {
         warningsAsErrors true
         abortOnError true
         disable 'AcceptsUserCertificates'
-        // Don't fail build if some dependencies outdated
         disable 'GradleDependency'
     }
 
@@ -78,21 +77,21 @@ dependencies {
     debugImplementation project(':library')
     releaseImplementation project(':library-no-op')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion"
-    implementation "androidx.activity:activity-ktx:$activityVersion"
+    implementation libs.kotlin.stdlib
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.androidx.activity.ktx
 
-    implementation "com.google.android.material:material:$materialComponentsVersion"
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation libs.google.material
+    implementation libs.androidx.appcompat
+    implementation libs.androidx.constraintlayout
 
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpVersion"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation libs.okhttp.logging.interceptor
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.gson
 
-    implementation "com.apollographql.apollo3:apollo-runtime:$apolloVersion"
+    implementation libs.apollo.runtime
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanaryVersion"
+    debugImplementation libs.leakcanary.android
 }
 
 apply from: rootProject.file('gradle/kotlin-static-analysis.gradle')
