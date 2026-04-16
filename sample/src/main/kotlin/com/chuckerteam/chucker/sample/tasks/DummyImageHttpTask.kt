@@ -1,5 +1,7 @@
-package com.chuckerteam.chucker.sample
+package com.chuckerteam.chucker.sample.tasks
 
+import com.chuckerteam.chucker.sample.HttpTask
+import com.chuckerteam.chucker.sample.ReadBytesCallback
 import okhttp3.OkHttpClient
 import okhttp3.Request
 

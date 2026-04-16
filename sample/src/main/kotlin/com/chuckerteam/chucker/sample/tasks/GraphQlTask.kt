@@ -1,8 +1,10 @@
-package com.chuckerteam.chucker.sample
+package com.chuckerteam.chucker.sample.tasks
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.Optional
 import com.apollographql.apollo3.network.okHttpClient
+import com.chuckerteam.chucker.sample.HttpTask
+import com.chuckerteam.chucker.sample.SearchCharactersQuery
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient

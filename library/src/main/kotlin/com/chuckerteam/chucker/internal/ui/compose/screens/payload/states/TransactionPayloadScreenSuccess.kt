@@ -1,7 +1,6 @@
 package com.chuckerteam.chucker.internal.ui.compose.screens.payload.states
 
 import android.text.SpannableStringBuilder
-import android.widget.Spinner
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +39,7 @@ import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 import com.sebastianneubauer.jsontree.JsonTree
 import com.sebastianneubauer.jsontree.TreeColors
+import org.json.JSONArray
 import org.json.JSONObject
 
 @Composable
@@ -53,14 +53,7 @@ internal fun TransactionPayloadScreenSuccess(
     // todo add copy response button
 
     // todo move to viewmodel bg thread
-    val isJson = remember(json) {
-        try {
-            JSONObject(json)
-            true
-        } catch (e: Exception) {
-            false
-        }
-    }
+    val isJson = remember(json) { json.isJson() }
     /**
      * todo
      * MyJsonTree
@@ -70,9 +63,9 @@ internal fun TransactionPayloadScreenSuccess(
      * 1) How to flatmap it to use inside another lazycolumn?
      * 2) Can you unfold items on level 2?
      */
-    if(isJson) {
+    if (isJson) {
         MyJsonTree(json)
-    } else{
+    } else {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(2.dp)
@@ -123,6 +116,18 @@ internal fun TransactionPayloadScreenSuccess(
     }
 }
 
+private fun String.isJson(): Boolean = try {
+    val json = this
+    if (json.startsWith("{")) {
+        JSONObject(json)
+    } else {
+        JSONArray(json)
+    }
+    true
+} catch (e: Exception) {
+    false
+}
+
 @Composable
 private fun MyJsonTree(
     json: String
@@ -151,7 +156,9 @@ private fun MyJsonTree(
         ),
         textStyle = AppTheme.typography.bodyLarge,
         onError = { it.printStackTrace() },
-        modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 8.dp),
         expandSingleChildren = true
     )
 }

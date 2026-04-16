@@ -1,6 +1,6 @@
-package com.chuckerteam.chucker.sample
+package com.chuckerteam.chucker.sample.tasks
 
-import com.chuckerteam.chucker.sample.HttpBinHttpTask.Api.Data
+import com.chuckerteam.chucker.sample.HttpTask
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -55,9 +55,9 @@ class HttpBinHttpTask(
     override fun run() =
         with(api) {
             get().enqueue(noOpCallback)
-            post(Data("posted")).enqueue(noOpCallback)
-            patch(Data("patched")).enqueue(noOpCallback)
-            put(Data("put")).enqueue(noOpCallback)
+            post(Api.Data("posted")).enqueue(noOpCallback)
+            patch(Api.Data("patched")).enqueue(noOpCallback)
+            put(Api.Data("put")).enqueue(noOpCallback)
             delete().enqueue(noOpCallback)
             status(201).enqueue(noOpCallback)
             status(401).enqueue(noOpCallback)
@@ -73,7 +73,7 @@ class HttpBinHttpTask(
             image("image/png").enqueue(noOpCallback)
             brotliResponse().enqueue(noOpCallback)
             gzipResponse().enqueue(noOpCallback)
-            gzipRequest(Data("Some gzip request")).enqueue(noOpCallback)
+            gzipRequest(Api.Data("Some gzip request")).enqueue(noOpCallback)
             xml().enqueue(noOpCallback)
             utf8().enqueue(noOpCallback)
             deflate().enqueue(noOpCallback)

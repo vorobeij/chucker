@@ -1,7 +1,6 @@
 package com.chuckerteam.chucker.sample
 
 import android.os.Bundle
-import android.os.StrictMode
 import android.text.method.LinkMovementMethod
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,21 +10,23 @@ import com.chuckerteam.chucker.api.Chucker
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ExportFormat
 import com.chuckerteam.chucker.sample.databinding.ActivityMainSampleBinding
+import com.chuckerteam.chucker.sample.tasks.GraphQlTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
 
 private val interceptorTypeSelector = InterceptorTypeSelector()
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mainBinding: ActivityMainSampleBinding
 
-    private val client by lazy {
+    private val client: OkHttpClient by lazy {
         createOkHttpClient(applicationContext, interceptorTypeSelector)
     }
 
-    private val httpTasks by lazy {
-        listOf(HttpBinHttpTask(client), DummyImageHttpTask(client), PostmanEchoHttpTask(client))
+    private val httpTasks by lazy{
+        HttpTasksRunner(client)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +37,7 @@ class MainActivity : AppCompatActivity() {
         with(mainBinding) {
             setContentView(root)
             doHttp.setOnClickListener {
-                for (task in httpTasks) {
-                    task.run()
-                }
+                httpTasks.run()
             }
             doGraphql.setOnClickListener {
                 GraphQlTask(client).run()

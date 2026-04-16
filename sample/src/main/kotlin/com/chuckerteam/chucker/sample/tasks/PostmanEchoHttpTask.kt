@@ -1,5 +1,10 @@
-package com.chuckerteam.chucker.sample
+package com.chuckerteam.chucker.sample.tasks
 
+import com.chuckerteam.chucker.sample.HttpTask
+import com.chuckerteam.chucker.sample.LARGE_JSON
+import com.chuckerteam.chucker.sample.Pokemon
+import com.chuckerteam.chucker.sample.ReadBytesCallback
+import com.chuckerteam.chucker.sample.SEGMENT_SIZE
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
