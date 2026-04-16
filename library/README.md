@@ -6,6 +6,7 @@
 - Search filters screen
 - Implement search filters
 - User settings
+- Upgrade project libraries to the latest versions
 
 ## Separate features
 

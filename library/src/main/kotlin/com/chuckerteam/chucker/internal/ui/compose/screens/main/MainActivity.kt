@@ -49,14 +49,14 @@ internal class MainActivity : BaseChuckerActivity() {
     }
     private val saveTextToFile = registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
         onSaveToFileActivityResult(
-            uri,
-            ExportType.TEXT
+            uri = uri,
+            type = ExportType.TEXT
         )
     }
     private val saveHarToFile = registerForActivityResult(ActivityResultContracts.CreateDocument("application/har+json")) { uri ->
         onSaveToFileActivityResult(
-            uri,
-            ExportType.HAR
+            uri = uri,
+            type = ExportType.HAR
         )
     }
 

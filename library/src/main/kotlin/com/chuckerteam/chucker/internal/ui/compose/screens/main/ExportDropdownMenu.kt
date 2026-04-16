@@ -3,6 +3,8 @@ package com.chuckerteam.chucker.internal.ui.compose.screens.main
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
@@ -17,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.chuckerteam.chucker.R
+import com.chuckerteam.design.system.components.icons.Download
 
 @Composable
 internal fun ExportDropdownMenu(
@@ -30,7 +33,7 @@ internal fun ExportDropdownMenu(
     var expanded by remember { mutableStateOf(false) }
 
     IconButton(onClick = { expanded = true }) {
-        Icon(Icons.Default.Share, contentDescription = stringResource(R.string.chucker_export))
+        Icon(Icons.Default.MoreVert, contentDescription = "More")
     }
 
     DropdownMenu(
@@ -56,12 +59,12 @@ internal fun ExportDropdownMenu(
         DropdownMenuItem(
             text = { Text(stringResource(R.string.chucker_save_as_text)) },
             onClick = { expanded = false; onSaveTextClick() },
-            leadingIcon = { Icon(Icons.Default.MailOutline, contentDescription = null) }
+            leadingIcon = { Icon(Icons.Default.Download, contentDescription = null) }
         )
         DropdownMenuItem(
             text = { Text(stringResource(R.string.chucker_save_as_har)) },
             onClick = { expanded = false; onSaveHarClick() },
-            leadingIcon = { Icon(Icons.Default.MailOutline, contentDescription = null) }
+            leadingIcon = { Icon(Icons.Default.Download, contentDescription = null) }
         )
     }
 }

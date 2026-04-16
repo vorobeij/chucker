@@ -9,6 +9,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -37,26 +38,35 @@ internal fun ChuckerTopAppBar(
 
     if (isSearchActive) {
         SearchBar(
-            query = searchQuery,
-            onQueryChange = { query -> onQueryChange(query) },
-            onSearch = {},
-            active = true,
-            onActiveChange = { onActiveChange(it) },
-            placeholder = { Text(stringResource(R.string.chucker_search)) },
-            leadingIcon = {
-                IconButton(onClick = onSearchToggle) {
-                    Icon(Icons.Default.Search, contentDescription = null)
-                }
-            },
-            trailingIcon = {
-                if (searchQuery.isNotEmpty()) {
-                    IconButton(onClick = { onQueryChange("") }) {
-                        Icon(Icons.Default.Clear, contentDescription = null)
+            inputField = {
+                SearchBarDefaults.InputField(
+                    query = searchQuery,
+                    onQueryChange = onQueryChange,
+                    onSearch = {},
+                    expanded = true,
+                    onExpandedChange = onActiveChange,
+                    placeholder = { Text(stringResource(R.string.chucker_search)) },
+                    leadingIcon = {
+                        IconButton(onClick = onSearchToggle) {
+                            Icon(Icons.Default.Search, contentDescription = null)
+                        }
+                    },
+                    trailingIcon = {
+                        if (searchQuery.isNotEmpty()) {
+                            IconButton(onClick = { onQueryChange("") }) {
+                                Icon(Icons.Default.Clear, contentDescription = null)
+                            }
+                        }
                     }
-                }
+                )
             },
+            expanded = true,
+            onExpandedChange = onActiveChange,
             modifier = modifier.fillMaxWidth()
-        ) {}
+        ) {
+            // Your dropdown/content goes here
+            Text(stringResource(R.string.chucker_name))
+        }
     } else {
         TopAppBar(
             title = {
