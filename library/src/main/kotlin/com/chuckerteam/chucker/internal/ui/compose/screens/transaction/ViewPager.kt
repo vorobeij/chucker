@@ -12,6 +12,7 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.chuckerteam.chucker.internal.data.cache.UserSettings
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.ui.compose.screens.overview.TransactionOverviewScreen
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.PayloadType
@@ -35,12 +36,16 @@ internal fun ViewPager(
             tabs.forEachIndexed { index, title ->
                 Tab(
                     selected = pagerState.currentPage == index,
-                    onClick = { coroutineScope.launch { pagerState.scrollToPage(index) } },
+                    onClick = {
+                        coroutineScope.launch {
+                            UserSettings.Transaction.openedTabIndex = index
+                            pagerState.scrollToPage(index)
+                        }
+                    },
                     text = { Text(title) }
                 )
             }
         }
-        // todo remember last selected tab
         HorizontalPager(state = pagerState) { page ->
             when (page) {
                 0 -> TransactionOverviewScreen(

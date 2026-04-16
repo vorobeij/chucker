@@ -39,6 +39,7 @@ import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 import com.sebastianneubauer.jsontree.JsonTree
 import com.sebastianneubauer.jsontree.TreeColors
+import com.sebastianneubauer.jsontree.TreeState
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -159,7 +160,8 @@ private fun MyJsonTree(
         modifier = Modifier
             .fillMaxSize()
             .padding(vertical = 8.dp),
-        expandSingleChildren = true
+        expandSingleChildren = true,
+        initialState = TreeState.EXPANDED
     )
 }
 

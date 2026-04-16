@@ -3,12 +3,14 @@ package com.chuckerteam.chucker.internal.core
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.chuckerteam.chucker.internal.data.cache.UserSettings
 import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
 
 internal abstract class BaseChuckerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         RepositoryProvider.initialize(applicationContext)
+        UserSettings.initialize(applicationContext)
     }
 
     override fun onResume() {
