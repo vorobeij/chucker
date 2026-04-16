@@ -50,7 +50,7 @@ buildscript {
 
     repositories {
         google()
-        gradlePluginPortal()
+        gradlePluginPortal()  // ✅ Required for external plugins
         mavenCentral()
     }
 
@@ -66,10 +66,17 @@ buildscript {
         classpath "com.squareup.wire:wire-gradle-plugin:$wireVersion"
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:$nexusStagingPlugin"
         classpath "com.google.devtools.ksp:symbol-processing-gradle-plugin:$kspVersion"
+
+        // ✅ FIXED: Correct artifact names with -gradle-plugin suffix
+        classpath "com.github.ben-manes:gradle-versions-plugin:0.53.0"
+        classpath "nl.littlerobots.vcu:plugin:1.1.0"
     }
 }
+
+// ✅ Apply plugins AFTER classpath is loaded (NO version specifier here)
 apply plugin: 'binary-compatibility-validator'
 apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'nl.littlerobots.version-catalog-update'
 
 apiValidation {
     ignoredProjects += ["sample"]
@@ -77,6 +84,21 @@ apiValidation {
         "com.chuckerteam.chucker.internal",
         "com.chuckerteam.chucker.databinding"
     ]
+}
+
+// Helper to detect unstable versions
+def isNonStable(String version) {
+    def stableKeyword = ['RELEASE', 'FINAL', 'GA'].any { kw -> version.toUpperCase().contains(kw) }
+    def regex = /^[0-9,.v-]+(-r)?$/
+    return !stableKeyword && !(version ==~ regex)
+}
+
+versionCatalogUpdate {
+    versionSelector {
+        // here 'it' is a ModuleVersionCandidate that can be used to determine if the version
+        // is allowed, returning true if it is.
+        !(it.candidate.version.contains('SNAPSHOT') || it.candidate.version.contains('ALPHA'))
+    }
 }
 
 allprojects {
@@ -93,6 +115,14 @@ allprojects {
             events "skipped", "failed", "passed"
         }
     }
+
+    apply plugin: com.github.benmanes.gradle.versions.VersionsPlugin
+    tasks.named("dependencyUpdates").configure {
+        rejectVersionIf {
+            isNonStable(it.candidate.version) && !isNonStable(it.currentVersion)
+        }
+    }
+
 }
 
 task installGitHook(type: Copy) {
