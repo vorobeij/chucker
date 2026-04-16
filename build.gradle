@@ -49,10 +49,10 @@ versionCatalogUpdate {
     versionSelector {
         !isNonStable(it.candidate.version)
     }
-//    // https://github.com/littlerobots/version-catalog-update-plugin
-//    pin {
-//        versions = ["androidGradle"]
-//    }
+    //   https://github.com/littlerobots/version-catalog-update-plugin
+    pin {
+        versions = ["androidGradle", "wire"]
+    }
 }
 
 allprojects {
