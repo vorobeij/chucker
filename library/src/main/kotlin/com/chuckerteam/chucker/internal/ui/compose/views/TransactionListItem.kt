@@ -23,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -62,7 +61,7 @@ internal fun TransactionListItem(
         modifier = modifier
             .fillMaxWidth()
             .clickable { onClick(transaction.id) },
-        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+        colors = CardDefaults.cardColors(containerColor = AppTheme.colorScheme.background)
     ) {
         Row(
             modifier = Modifier
@@ -72,7 +71,10 @@ internal fun TransactionListItem(
         ) {
             StatusCode(transaction, statusCodeColor)
 
-            Column(modifier = Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
                 MethodAndPath(transaction, statusCodeColor)
                 GQLInfo(transaction)
                 HostAndSsl(transaction)
@@ -116,7 +118,7 @@ private fun HostAndSsl(transaction: HttpTransactionTuple) {
         Image(
             painter = painterResource(id = protocolRes.icon),
             contentDescription = stringResource(id = R.string.chucker_ssl),
-            colorFilter = ColorFilter.tint(colorResource(id = protocolRes.color)),
+            colorFilter = ColorFilter.tint(AppTheme.colorScheme.primary),
             modifier = Modifier.size(dimensionResource(id = R.dimen.chucker_doub_grid))
         )
         Text(

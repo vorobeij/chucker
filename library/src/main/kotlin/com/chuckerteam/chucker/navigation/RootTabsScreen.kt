@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.chuckerteam.chucker.navigation.graph.NavGraphs
 import com.chuckerteam.chucker.navigation.graph.graphHome
 import com.chuckerteam.chucker.navigation.tabs.NetworkingScreenDeeplink
+import com.chuckerteam.design.system.theme.AppTheme
 
 @Composable
 internal fun RootTabsScreen(
@@ -18,7 +19,8 @@ internal fun RootTabsScreen(
     Scaffold(
         bottomBar = {
             BottomBar(navController)
-        }
+        },
+        containerColor = AppTheme.colorScheme.background
     ) { innerPadding ->
         NavHost(
             route = NavGraphs.HOME,

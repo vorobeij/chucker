@@ -6,11 +6,8 @@ import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ReadOnlyComposable
-import androidx.compose.ui.platform.LocalContext
 
 @Composable
 public fun AppTheme(
@@ -21,10 +18,11 @@ public fun AppTheme(
     val inDarkMode: Boolean = isSystemInDarkTheme()
     val colorScheme: ColorScheme = when {
         forcedDark == true -> DarkThemeColors
-        supportsDynamic -> {
-            val context = LocalContext.current
-            if (inDarkMode) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+        // todo пока непонятно, что это. Если применить, тема не меняется
+//        supportsDynamic -> {
+//            val context = LocalContext.current
+//            if (inDarkMode) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+//        }
 
         else -> {
             if (inDarkMode) DarkThemeColors else LightThemeColors
