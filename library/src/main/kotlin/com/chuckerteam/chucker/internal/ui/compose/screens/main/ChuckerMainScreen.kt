@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
 import com.chuckerteam.chucker.internal.ui.compose.views.TransactionListItem
+import com.chuckerteam.design.system.components.FilterChipRow
+import com.chuckerteam.design.system.components.FilterOption
+import com.chuckerteam.design.system.components.icons.Filters
 import com.chuckerteam.design.system.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -49,38 +52,73 @@ internal fun ChuckerMainScreen(
 
     Scaffold(
         topBar = {
-            if (isSearchActive) {
-                MySearchBar(
-                    onQueryChange = onQueryChange,
-                    onSearch = {},
-                    modifier = modifier.fillMaxWidth()
-                )
-            } else {
-                TopAppBar(
-                    title = {
-                        Column {
-                            Text(stringResource(R.string.chucker_name))
-                            Text(
-                                text = applicationName,
-                                style = AppTheme.typography.titleSmall,
-                                maxLines = 1,
-                                overflow = TextOverflow.Ellipsis
+            Column(    modifier = Modifier.padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                if (isSearchActive) {
+                    MySearchBar(
+                        onQueryChange = onQueryChange,
+                        onSearch = {},
+                        modifier = modifier.fillMaxWidth()
+                    )
+                } else {
+                    TopAppBar(
+                        title = {
+                            Column {
+                                Text(stringResource(R.string.chucker_name))
+                                Text(
+                                    text = applicationName,
+                                    style = AppTheme.typography.titleSmall,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Ellipsis
+                                )
+                            }
+                        },
+                        actions = {
+                            IconButton(onClick = { isSearchActive = !isSearchActive }) {
+                                Icon(Icons.Default.Search, contentDescription = stringResource(R.string.chucker_search))
+                            }
+                            ExportDropdownMenu(
+                                onClearClick = onClearClick,
+                                onShareTextClick = onShareTextClick,
+                                onShareHarClick = onShareHarClick,
+                                onSaveTextClick = onSaveTextClick,
+                                onSaveHarClick = onSaveHarClick
                             )
-                        }
-                    },
-                    actions = {
-                        IconButton(onClick = { isSearchActive = !isSearchActive }) {
-                            Icon(Icons.Default.Search, contentDescription = stringResource(R.string.chucker_search))
-                        }
-                        ExportDropdownMenu(
-                            onClearClick = onClearClick,
-                            onShareTextClick = onShareTextClick,
-                            onShareHarClick = onShareHarClick,
-                            onSaveTextClick = onSaveTextClick,
-                            onSaveHarClick = onSaveHarClick
-                        )
-                    },
-                    modifier = modifier
+                        },
+                        modifier = modifier
+                    )
+                }
+
+                val filterOptions = remember {
+                    listOf(
+                        FilterOption("settings", "", icon = {
+                            Icon(
+                                imageVector = Icons.Default.Filters,
+                                contentDescription = ""
+                            )
+                        }),
+                        FilterOption("all", "All"),
+                        FilterOption("network", "Network", icon = { /* Icon here */ }),
+                        FilterOption("database", "Database"),
+                        FilterOption("ui", "UI"),
+                        FilterOption("performance", "Performance"),
+                        FilterOption("security", "Security"),
+                        FilterOption("other", "Other")
+                    )
+                }
+                var selectedFilters by remember { mutableStateOf(setOf<String>("all")) }
+
+                val filteredResults = remember(selectedFilters) {
+                    if (selectedFilters.contains("all") || selectedFilters.isEmpty()) {
+                        "Showing all items"
+                    } else {
+                        "Filtered by: ${selectedFilters.joinToString()}"
+                    }
+                }
+                FilterChipRow(
+                    options = filterOptions,
+                    selectedIds = selectedFilters,
+                    onSelectionChange = { selectedFilters = it },
                 )
             }
         }

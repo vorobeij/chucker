@@ -2,10 +2,12 @@ package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.SearchBar
@@ -24,16 +26,19 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.R
+import com.chuckerteam.design.system.theme.AppPreview
+import com.chuckerteam.design.system.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MySearchBar(
     modifier: Modifier = Modifier,
-    onQueryChange: (String) -> Unit,
-    onSearch: (String) -> Unit
+    query: String = "",
+    onQueryChange: (String) -> Unit = {},
+    onSearch: (String) -> Unit = {}
 ) {
     var isSearchActive by remember { mutableStateOf(false) }
-    var searchQuery by remember { mutableStateOf("") }
+    var searchQuery by remember { mutableStateOf(query) }
 
     val focusManager = LocalFocusManager.current
     val focusRequester = remember { FocusRequester() }
@@ -80,8 +85,19 @@ internal fun MySearchBar(
         },
         expanded = false,
         onExpandedChange = { isSearchActive = it },
-        modifier = modifier.fillMaxWidth().padding(horizontal = 8.dp)
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp)
     ) {
-        // Dropdown / suggestions content
+    }
+}
+
+@AppPreview
+@Composable
+private fun Preview() {
+    AppTheme {
+        MySearchBar(
+            query = "lorem"
+        )
     }
 }

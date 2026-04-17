@@ -23,6 +23,7 @@ detekt = "1.23.8"
 fragment = "1.8.9"
 gradleVersions = "0.53.0"
 gson = "2.13.2"
+iconsLucideAndroid = "2.2.1"
 jsontree = "2.6.0"
 junit4 = "4.13.2"
 # Testing
@@ -83,6 +84,7 @@ androidx-test-runner = { module = "androidx.test:runner", version.ref = "android
 apollo-runtime = { module = "com.apollographql.apollo3:apollo-runtime", version.ref = "apollo" }
 brotli-dec = { module = "org.brotli:dec", version.ref = "brotli" }
 # Networking/JSON
+composables-icons-lucide-android = { module = "com.composables:icons-lucide-android", version.ref = "iconsLucideAndroid" }
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 # Google/Material
 google-material = { module = "com.google.android.material:material", version.ref = "material" }

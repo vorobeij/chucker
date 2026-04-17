@@ -1,5 +1,6 @@
 # Roadmap
 
+- Replace activities with compose screens
 - remove all todos
 - add compose navigation
 - save opened tab in app cache

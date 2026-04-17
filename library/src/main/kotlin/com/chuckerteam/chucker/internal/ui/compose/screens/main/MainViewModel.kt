@@ -13,6 +13,7 @@ import com.chuckerteam.chucker.internal.support.NotificationHelper
 import kotlinx.coroutines.launch
 
 internal class MainViewModel : ViewModel() {
+
     private val currentFilter = MutableLiveData("")
 
     val transactions: LiveData<List<HttpTransactionTuple>> =
