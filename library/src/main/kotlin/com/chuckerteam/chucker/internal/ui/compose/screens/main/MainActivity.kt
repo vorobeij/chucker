@@ -38,7 +38,8 @@ import okio.Source
 import okio.buffer
 import okio.source
 
-internal class MainActivity : BaseChuckerActivity() {
+// todo delete
+internal class MainActivityOld : BaseChuckerActivity() {
     private val viewModel: MainViewModel by viewModels()
     private val applicationName: CharSequence get() = applicationInfo.loadLabel(packageManager)
 
@@ -139,7 +140,7 @@ internal class MainActivity : BaseChuckerActivity() {
             }
             val intent = withContext(Dispatchers.IO) {
                 block(txns).shareAsFile(
-                    activity = this@MainActivity, fileName = fileName,
+                    activity = this@MainActivityOld, fileName = fileName,
                     intentTitle = getString(R.string.chucker_share_all_transactions_title),
                     intentSubject = getString(R.string.chucker_share_all_transactions_subject),
                     clipDataLabel = "transactions"
@@ -201,7 +202,7 @@ internal class MainActivity : BaseChuckerActivity() {
         }
         return withContext(Dispatchers.IO) {
             when (type) {
-                ExportType.TEXT -> TransactionListDetailsSharable(txns, encodeUrls = false).toSharableContent(this@MainActivity)
+                ExportType.TEXT -> TransactionListDetailsSharable(txns, encodeUrls = false).toSharableContent(this@MainActivityOld)
                 ExportType.HAR -> HarUtils.harStringFromTransactions(
                     txns,
                     getString(R.string.chucker_name),

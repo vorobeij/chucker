@@ -11,7 +11,7 @@ import androidx.core.content.getSystemService
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.support.Logger
 import com.chuckerteam.chucker.internal.support.NotificationHelper
-import com.chuckerteam.chucker.internal.ui.compose.screens.main.MainActivity
+import com.chuckerteam.chucker.navigation.MainActivity
 
 /**
  * Chucker methods and utilities to interact with the library.

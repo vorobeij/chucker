@@ -16,7 +16,14 @@
 
     <application>
         <activity
-            android:name="com.chuckerteam.chucker.internal.ui.compose.screens.main.MainActivity"
+            android:name="com.chuckerteam.chucker.navigation.MainActivity"
+            android:label="@string/chucker_name"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.chuckerteam.chucker.task"
+            android:theme="@style/Chucker.Theme" />
+
+        <activity
+            android:name="com.chuckerteam.chucker.internal.ui.compose.screens.main.MainActivityOld"
             android:label="@string/chucker_name"
             android:launchMode="singleTask"
             android:taskAffinity="com.chuckerteam.chucker.task"
@@ -24,7 +31,7 @@
 
         <activity
             android:name=".internal.ui.compose.screens.transaction.TransactionActivity"
-            android:parentActivityName="com.chuckerteam.chucker.internal.ui.compose.screens.main.MainActivity"
+            android:parentActivityName="com.chuckerteam.chucker.navigation.MainActivity"
             android:theme="@style/Chucker.Theme" />
 
         <service

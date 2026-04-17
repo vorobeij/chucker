@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="chucker_name" translatable="false">Chucker</string>
+
+    <string name="chucker_tab_networking">Network</string>
+    <string name="chucker_tab_metrics">Metrics</string>
+    <string name="chucker_tab_settings">Settings</string>
+
     <string name="chucker_http_notification_title">Recording HTTP activity</string>
     <string name="chucker_clear">Clear</string>
     <string name="chucker_encode_url">Encode URL</string>
