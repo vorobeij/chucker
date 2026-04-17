@@ -10,8 +10,8 @@ internal fun NavGraphBuilder.graphHome(
     navController: NavHostController
 ): NavGraphBuilder {
 
-    metricsComposable(navController)
     networkingScreenComposable(navController)
+    metricsComposable(navController)
     settingsComposable(navController)
 
     return this

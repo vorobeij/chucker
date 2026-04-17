@@ -2,9 +2,11 @@ package com.chuckerteam.chucker.internal.ui.compose.screens.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -17,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +37,7 @@ import com.chuckerteam.design.system.theme.AppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ChuckerMainScreen(
-    viewModel: MainViewModel,
+    transactions: List<HttpTransactionTuple>,
     applicationName: String,
     onTransactionClick: (Long) -> Unit,
     onClearClick: () -> Unit,
@@ -47,13 +48,15 @@ internal fun ChuckerMainScreen(
     onQueryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val transactions: List<HttpTransactionTuple> by viewModel.transactions.observeAsState(emptyList())
     var isSearchActive by remember { mutableStateOf(false) }
 
     Scaffold(
+        contentWindowInsets = WindowInsets.statusBars,
         topBar = {
-            Column(    modifier = Modifier.padding(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)) {
+            Column(
+                modifier = Modifier,
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
                 if (isSearchActive) {
                     MySearchBar(
                         onQueryChange = onQueryChange,
@@ -85,7 +88,8 @@ internal fun ChuckerMainScreen(
                                 onSaveHarClick = onSaveHarClick
                             )
                         },
-                        modifier = modifier
+                        modifier = modifier,
+                        windowInsets = WindowInsets(0.dp)
                     )
                 }
 

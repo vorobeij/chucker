@@ -6,6 +6,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.chuckerteam.chucker.R
+import com.chuckerteam.chucker.internal.ui.compose.screens.main.ChuckerScreenRoot
 import com.chuckerteam.chucker.navigation.core.TabScreenDeeplink
 import com.chuckerteam.chucker.navigation.core.composableNoAnim
 
@@ -21,7 +22,12 @@ internal fun NavGraphBuilder.networkingScreenComposable(
     route = NetworkingScreenDeeplink.route,
 ) {
     val context = LocalContext.current
-    ScreenNetworking()
+    ChuckerScreenRoot(
+        applicationName = "Chucker",
+        onTransactionClick = {
+            // todo open composable
+        }
+    )
 }
 
 @Composable
