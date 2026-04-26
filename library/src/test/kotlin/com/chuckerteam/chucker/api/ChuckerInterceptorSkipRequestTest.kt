@@ -8,6 +8,7 @@ import com.chuckerteam.chucker.util.readByteStringBody
 import com.google.common.truth.Truth.assertThat
 import io.mockk.every
 import io.mockk.mockk
+import java.io.File
 import okhttp3.Headers
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -21,7 +22,6 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.io.TempDir
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.EnumSource
-import java.io.File
 
 @ExtendWith(NoLoggerRule::class)
 internal class ChuckerInterceptorSkipRequestTest {
@@ -370,7 +370,6 @@ internal class ChuckerInterceptorSkipRequestTest {
         every { proceed(any<Request>()) } returns
             mockk(relaxed = true) {
                 every { headers } returns Headers.Builder().build()
-                every { body } returns null
             }
     }
 

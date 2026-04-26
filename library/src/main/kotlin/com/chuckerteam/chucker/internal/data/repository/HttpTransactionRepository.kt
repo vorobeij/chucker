@@ -3,6 +3,7 @@ package com.chuckerteam.chucker.internal.data.repository
 import androidx.lifecycle.LiveData
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
+import com.chuckerteam.chucker.internal.data.repository.search.SearchFilter
 
 /**
  * Repository Interface representing all the operations that are needed to let Chucker work
@@ -21,8 +22,7 @@ internal interface HttpTransactionRepository {
     fun getSortedTransactionTuples(): LiveData<List<HttpTransactionTuple>>
 
     fun getFilteredTransactionTuples(
-        code: String,
-        path: String,
+        searchFilter: SearchFilter,
     ): LiveData<List<HttpTransactionTuple>>
 
     fun getTransaction(transactionId: Long): LiveData<HttpTransaction?>

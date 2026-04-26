@@ -3,6 +3,8 @@ package com.chuckerteam.chucker.internal.data.repository
 import androidx.lifecycle.LiveData
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
+import com.chuckerteam.chucker.internal.data.repository.search.SearchFilter
+import com.chuckerteam.chucker.internal.data.repository.search.SearchQueryBuilder
 import com.chuckerteam.chucker.internal.data.room.ChuckerDatabase
 import com.chuckerteam.chucker.internal.support.distinctUntilChanged
 
@@ -10,19 +12,10 @@ internal class HttpTransactionDatabaseRepository(private val database: ChuckerDa
     private val transactionDao get() = database.transactionDao()
 
     override fun getFilteredTransactionTuples(
-        code: String,
-        path: String
+        searchFilter: SearchFilter,
     ): LiveData<List<HttpTransactionTuple>> {
-        val pathQuery = if (path.isNotEmpty()) "%$path%" else "%"
-        return transactionDao.getFilteredTuples(
-            "$code%",
-            pathQuery = pathQuery,
-            /*
-             * Refer <a href='https://github.com/ChuckerTeam/chucker/issues/847">Issue #847</a> for
-             * more context
-             */
-            graphQlQuery = pathQuery,
-        )
+        val rawQuery = SearchQueryBuilder().build(searchFilter)
+        return transactionDao.getTransactions(rawQuery)
     }
 
     override fun getTransaction(transactionId: Long): LiveData<HttpTransaction?> {

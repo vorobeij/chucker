@@ -16,6 +16,7 @@ internal interface SuggestionsDao {
         SELECT s.* FROM suggestions s
         WHERE s.q LIKE '%' || :query || '%'
         ORDER BY s.timestamp DESC
+        limit 10
     """
     )
     suspend fun suggestions(query: String): List<SuggestionEntity>

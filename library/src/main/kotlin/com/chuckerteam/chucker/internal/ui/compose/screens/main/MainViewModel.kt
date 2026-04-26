@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
-import android.text.TextUtils
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
 import com.chuckerteam.chucker.internal.data.repository.Di
+import com.chuckerteam.chucker.internal.data.repository.search.SearchFilter
 import com.chuckerteam.chucker.internal.support.NotificationHelper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -28,8 +28,7 @@ internal class MainViewModel : ViewModel() {
             with(Di.transactionRepository) {
                 when {
                     searchQuery.isNullOrBlank() -> getSortedTransactionTuples()
-                    TextUtils.isDigitsOnly(searchQuery) -> getFilteredTransactionTuples(searchQuery, "")
-                    else -> getFilteredTransactionTuples("", searchQuery)
+                    else -> getFilteredTransactionTuples(SearchFilter(searchQuery))
                 }
             }
         }

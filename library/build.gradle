@@ -25,12 +25,12 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlin {
-        jvmToolchain(11)
+        jvmToolchain(17)
     }
 
     buildFeatures {
@@ -112,11 +112,14 @@ dependencies {
 
     // Testing - Unit
     testImplementation libs.bundles.testing.junit5
+    testImplementation libs.junit.jupiter.api
     testImplementation libs.mockk
     testImplementation libs.androidx.test.core
     testImplementation libs.androidx.core.testing
     testImplementation libs.truth
     testImplementation libs.robolectric
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.platform.launcher
 
     // Testing - Android
     androidTestImplementation libs.junit4
@@ -128,3 +131,4 @@ dependencies {
 
 apply from: rootProject.file('gradle/gradle-mvn-push.gradle')
 apply from: rootProject.file('gradle/kotlin-static-analysis.gradle')
+
