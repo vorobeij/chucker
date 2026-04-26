@@ -63,4 +63,3 @@ public object AppTheme {
     public val shapes: Shapes
         @Composable @ReadOnlyComposable get() = MaterialTheme.shapes
 }
-

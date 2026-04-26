@@ -1,5 +1,6 @@
 package com.chuckerteam.chucker.internal.data.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
@@ -11,15 +12,18 @@ internal interface SuggestionsDao {
     @Insert
     suspend fun insert(suggestion: SuggestionEntity)
 
+    @Query("delete from suggestions where q = :query")
+    suspend fun delete(query: String)
+
     @Query(
         """
         SELECT s.* FROM suggestions s
         WHERE s.q LIKE '%' || :query || '%'
         ORDER BY s.timestamp DESC
-        limit 10
+        limit 20
     """
     )
-    suspend fun suggestions(query: String): List<SuggestionEntity>
+    fun suggestions(query: String): LiveData<List<SuggestionEntity>>
 
     @Query(
         """

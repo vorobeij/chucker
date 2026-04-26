@@ -26,7 +26,7 @@ internal fun RootTabsScreen(
             route = NavGraphs.HOME,
             navController = navController,
             startDestination = NetworkingScreenDeeplink.route,
-            modifier = Modifier.Companion.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding)
         ) {
             graphHome(navController)
         }

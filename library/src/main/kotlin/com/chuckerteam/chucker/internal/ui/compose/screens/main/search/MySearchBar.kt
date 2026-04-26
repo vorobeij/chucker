@@ -1,10 +1,8 @@
 package com.chuckerteam.chucker.internal.ui.compose.screens.main.search
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -16,8 +14,8 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,13 +31,14 @@ import com.chuckerteam.chucker.internal.data.entity.SuggestionEntity
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MySearchBar(
     onSearch: (String) -> Unit = {}
 ) {
     val viewModel: SearchBarViewModel = viewModel()
-    val suggestions by viewModel.suggestions.collectAsState(initial = emptyList())
+    val suggestions by viewModel.suggestions.observeAsState(initial = emptyList())
 
     MySearchBarComponent(
         suggestions = suggestions,
@@ -47,7 +46,8 @@ internal fun MySearchBar(
             viewModel.onSearch(query)
             onSearch(query)
         },
-        onQueryChange = viewModel::onQueryChanged
+        onQueryChange = viewModel::onQueryChanged,
+        onDelete = viewModel::onDelete
     )
 }
 
@@ -58,7 +58,8 @@ internal fun MySearchBarComponent(
     isSearchActive: Boolean = false,
     suggestions: List<SuggestionEntity>,
     onQueryChange: (String) -> Unit = {},
-    onSearch: (String) -> Unit = {}
+    onSearch: (String) -> Unit = {},
+    onDelete: (String) -> Unit = {},
 ) {
 
     var isSearchActive by remember { mutableStateOf(isSearchActive) }
@@ -74,7 +75,7 @@ internal fun MySearchBarComponent(
         }
     }
 
-    val clearFocusAndSearch = remember {
+    val clearFocusAndSearch: (String) -> Unit = remember {
         { s: String ->
             focusManager.clearFocus()
             searchQuery = s
@@ -118,37 +119,13 @@ internal fun MySearchBarComponent(
             .fillMaxWidth()
             .padding(horizontal = if (isSearchActive) 0.dp else 16.dp)
     ) {
-        LazyColumn(
-            modifier = Modifier.padding(top = 8.dp)
-        ) {
-            items(
-                count = suggestions.size,
-                key = { suggestions[it].id },
-                itemContent = {
-                    Suggestion(
-                        text = suggestions[it].query,
-                        onClick = { s -> clearFocusAndSearch(s) }
-                    )
-                }
-            )
-        }
+        SearchFilters(
+            modifier = Modifier,
+            suggestions = suggestions,
+            clearFocusAndSearch = clearFocusAndSearch,
+            onDelete = onDelete
+        )
     }
-}
-
-@Composable
-internal fun Suggestion(
-    text: String,
-    onClick: (s: String) -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        style = AppTheme.typography.bodyMedium,
-        modifier = modifier
-            .clickable { onClick(text) }
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 12.dp)
-    )
 }
 
 @AppPreview
@@ -168,7 +145,7 @@ private fun Preview2() {
     AppTheme {
         MySearchBarComponent(
             isSearchActive = true,
-            suggestions = emptyList()
+            suggestions = suggestionsMock
         )
     }
 }

@@ -1,6 +1,5 @@
 package com.chuckerteam.chucker.internal.ui.compose.screens.main.views
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,14 +11,12 @@ import com.chuckerteam.design.system.theme.AppTheme
 @Composable
 internal fun MyAppBar(
     modifier: Modifier = Modifier,
-    onSearch: (String) -> Unit = {}
+    onSearch: (String) -> Unit = {},
+    onOpenFilters: () -> Unit = {},
 ) {
-    Column {
-        MySearchBar(
-            onSearch = onSearch
-        )
-        FiltersRow()
-    }
+    MySearchBar(
+        onSearch = onSearch
+    )
 }
 
 @AppPreview

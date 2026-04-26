@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -24,7 +24,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.chuckerteam.design.system.components.icons.Download
 import com.chuckerteam.design.system.components.icons.Filters
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
@@ -32,14 +31,21 @@ import com.chuckerteam.design.system.theme.AppTheme
 public data class FilterOption(
     val id: String,
     val label: String? = null,
-    val icon: @Composable (() -> Unit)? = null
+    val icon: @Composable (() -> Unit)? = null,
+    val type: ChipType = ChipType.FILTER
 )
+
+public enum class ChipType {
+    FILTER,
+    ASSIST
+}
 
 @Composable
 public fun FilterChipRow(
     options: List<FilterOption>,
     selectedIds: Set<String>,
     onSelectionChange: (Set<String>) -> Unit,
+    onAssistClick: (String) -> Unit = {},
     modifier: Modifier = Modifier,
     singleSelect: Boolean = false,
     contentPadding: PaddingValues = PaddingValues(horizontal = 0.dp),
@@ -53,32 +59,46 @@ public fun FilterChipRow(
         items(options, key = { it.id }) { option ->
             val selected = selectedIds.contains(option.id)
 
-            FilterChip(
-                selected = selected,
-                onClick = {
-                    val newSelection = if (singleSelect) {
-                        if (selected) emptySet() else setOf(option.id)
-                    } else {
-                        if (selected) {
-                            selectedIds - option.id
+            when (option.type) {
+                ChipType.FILTER -> FilterChip(
+                    selected = selected,
+                    onClick = {
+                        val newSelection = if (singleSelect) {
+                            if (selected) emptySet() else setOf(option.id)
                         } else {
-                            selectedIds + option.id
+                            if (selected) {
+                                selectedIds - option.id
+                            } else {
+                                selectedIds + option.id
+                            }
                         }
-                    }
-                    onSelectionChange(newSelection)
-                },
-                label = { option.label?.let { Text(option.label) } },
-                leadingIcon = option.icon?.let { icon ->
-                    {
-                        icon()
-                    }
-                },
-                colors = FilterChipDefaults.filterChipColors(
-                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
-                    selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
-                    selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
+                        onSelectionChange(newSelection)
+                    },
+                    label = { option.label?.let { Text(option.label) } },
+                    leadingIcon = option.icon?.let { icon ->
+                        {
+                            icon()
+                        }
+                    },
+                    colors = FilterChipDefaults.filterChipColors(
+                        selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                        selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                        selectedLeadingIconColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    )
                 )
-            )
+
+                ChipType.ASSIST -> AssistChip(
+                    onClick = {
+                        onAssistClick(option.id)
+                    },
+                    label = { option.label?.let { Text(option.label) } },
+                    leadingIcon = option.icon?.let { icon ->
+                        {
+                            icon()
+                        }
+                    },
+                )
+            }
         }
     }
 }

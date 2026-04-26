@@ -3,7 +3,6 @@ package com.chuckerteam.chucker.internal.data.repository
 import android.content.Context
 import com.chuckerteam.chucker.internal.data.cache.UserSettings
 import com.chuckerteam.chucker.internal.data.room.ChuckerDatabase
-import com.chuckerteam.chucker.internal.ui.compose.screens.main.search.SuggestionsRepository
 import java.lang.ref.WeakReference
 
 internal object Di {
