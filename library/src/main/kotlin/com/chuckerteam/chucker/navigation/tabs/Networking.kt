@@ -1,12 +1,11 @@
 package com.chuckerteam.chucker.navigation.tabs
 
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.ui.compose.screens.main.ChuckerScreenRoot
+import com.chuckerteam.chucker.internal.ui.compose.screens.transaction.TransactionActivity
 import com.chuckerteam.chucker.navigation.core.TabScreenDeeplink
 import com.chuckerteam.chucker.navigation.core.composableNoAnim
 
@@ -24,13 +23,9 @@ internal fun NavGraphBuilder.networkingScreenComposable(
     val context = LocalContext.current
     ChuckerScreenRoot(
         applicationName = "Chucker",
-        onTransactionClick = {
+        onTransactionClick = { transactionId ->
             // todo open composable
+            TransactionActivity.start(context, transactionId)
         }
     )
-}
-
-@Composable
-internal fun ScreenNetworking() {
-    Text("networking")
 }

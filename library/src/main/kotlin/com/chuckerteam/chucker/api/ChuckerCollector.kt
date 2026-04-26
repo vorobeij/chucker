@@ -5,7 +5,7 @@ import android.net.Uri
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.har.log.Creator
-import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
+import com.chuckerteam.chucker.internal.data.repository.Di
 import com.chuckerteam.chucker.internal.support.HarUtils
 import com.chuckerteam.chucker.internal.support.JsonConverter
 import com.chuckerteam.chucker.internal.support.NotificationHelper
@@ -29,6 +29,7 @@ import kotlinx.coroutines.withContext
  * by this collector. The default is one week.
  */
 public class ChuckerCollector
+
     @JvmOverloads
     constructor(
         context: Context,
@@ -40,7 +41,7 @@ public class ChuckerCollector
         private val scope = MainScope()
 
         init {
-            RepositoryProvider.initialize(context)
+            Di.init(context)
             Chucker.showNotifications = showNotification
         }
 
@@ -51,7 +52,7 @@ public class ChuckerCollector
         internal fun onRequestSent(transaction: HttpTransaction) {
             scope.launch {
                 withContext(Dispatchers.IO) {
-                    RepositoryProvider.transaction().insertTransaction(transaction)
+                    Di.transactionRepository.insertTransaction(transaction)
                 }
 
                 if (showNotification) {
@@ -72,7 +73,7 @@ public class ChuckerCollector
             scope.launch {
                 val updated =
                     withContext(Dispatchers.IO) {
-                        RepositoryProvider.transaction().updateTransaction(transaction)
+                        Di.transactionRepository.updateTransaction(transaction)
                     }
                 if (showNotification && updated > 0) {
                     notificationHelper.show(transaction)
@@ -96,7 +97,7 @@ public class ChuckerCollector
             exportFormat: ExportFormat = ExportFormat.LOG,
         ): Uri? {
             val transactions =
-                RepositoryProvider.transaction().getTransactionsInTimeRange(startTimestamp)
+                Di.transactionRepository.getTransactionsInTimeRange(startTimestamp)
             if (transactions.isEmpty()) {
                 return null
             }

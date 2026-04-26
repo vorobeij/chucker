@@ -11,6 +11,7 @@ import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
 
 @Dao
 internal interface HttpTransactionDao {
+
     @Query(
         "SELECT id, requestDate, tookMs, protocol, method, host, path, scheme, responseCode, " +
             "requestPayloadSize, responsePayloadSize, error, graphQLDetected, graphQlOperationName FROM " +

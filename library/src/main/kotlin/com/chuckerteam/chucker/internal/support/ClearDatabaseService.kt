@@ -3,7 +3,7 @@ package com.chuckerteam.chucker.internal.support
 import android.content.Context
 import android.content.Intent
 import androidx.core.app.JobIntentService
-import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
+import com.chuckerteam.chucker.internal.data.repository.Di
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
@@ -11,9 +11,9 @@ internal class ClearDatabaseService : JobIntentService() {
     private val scope = MainScope()
 
     override fun onHandleWork(intent: Intent) {
-        RepositoryProvider.initialize(applicationContext)
+        Di.init(applicationContext)
         scope.launch {
-            RepositoryProvider.transaction().deleteAllTransactions()
+            Di.transactionRepository.deleteAllTransactions()
             NotificationHelper.clearBuffer()
             NotificationHelper(applicationContext).dismissNotifications()
         }

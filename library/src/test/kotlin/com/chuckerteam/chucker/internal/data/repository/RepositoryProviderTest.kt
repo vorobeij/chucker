@@ -35,21 +35,21 @@ internal class RepositoryProviderTest {
     @Test
     fun `fails with uninitialized transaction repository`() {
         assertThrows<IllegalStateException> {
-            RepositoryProvider.transaction()
+            RepositoryProvider.httpTransactionRepository()
         }
     }
 
     @Test
     fun `transaction repository is available after initialization`() {
         RepositoryProvider.initialize(context)
-        assertThat(RepositoryProvider.transaction()).isNotNull()
+        assertThat(RepositoryProvider.httpTransactionRepository()).isNotNull()
     }
 
     @Test
     fun `transaction repository is cached`() {
         RepositoryProvider.initialize(context)
-        val one = RepositoryProvider.transaction()
-        val two = RepositoryProvider.transaction()
+        val one = RepositoryProvider.httpTransactionRepository()
+        val two = RepositoryProvider.httpTransactionRepository()
         assertThat(one).isSameInstanceAs(two)
     }
 }

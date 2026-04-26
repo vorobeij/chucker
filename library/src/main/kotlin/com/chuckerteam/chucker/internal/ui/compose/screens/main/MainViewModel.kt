@@ -13,7 +13,7 @@ import androidx.lifecycle.switchMap
 import androidx.lifecycle.viewModelScope
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
-import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
+import com.chuckerteam.chucker.internal.data.repository.Di
 import com.chuckerteam.chucker.internal.support.NotificationHelper
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -25,7 +25,7 @@ internal class MainViewModel : ViewModel() {
 
     val transactions: LiveData<List<HttpTransactionTuple>> =
         currentFilter.switchMap { searchQuery ->
-            with(RepositoryProvider.transaction()) {
+            with(Di.transactionRepository) {
                 when {
                     searchQuery.isNullOrBlank() -> getSortedTransactionTuples()
                     TextUtils.isDigitsOnly(searchQuery) -> getFilteredTransactionTuples(searchQuery, "")
@@ -38,7 +38,7 @@ internal class MainViewModel : ViewModel() {
     val permissionRequest = _permissionRequest.asSharedFlow()
 
     suspend fun getAllTransactions(): List<HttpTransaction> =
-        RepositoryProvider.transaction().getAllTransactions()
+        Di.transactionRepository.getAllTransactions()
 
     fun updateItemsFilter(searchQuery: String) {
         currentFilter.value = searchQuery
@@ -46,7 +46,7 @@ internal class MainViewModel : ViewModel() {
 
     fun clearTransactions() {
         viewModelScope.launch {
-            RepositoryProvider.transaction().deleteAllTransactions()
+            Di.transactionRepository.deleteAllTransactions()
         }
         NotificationHelper.clearBuffer() // Fixed: removed erroneous .Companion
     }

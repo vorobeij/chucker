@@ -15,16 +15,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.lifecycleScope
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.core.BaseChuckerActivity
-import com.chuckerteam.chucker.internal.data.cache.UserSettings
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
+import com.chuckerteam.chucker.internal.data.repository.Di
 import com.chuckerteam.chucker.internal.support.HarUtils
 import com.chuckerteam.chucker.internal.support.Sharable
 import com.chuckerteam.chucker.internal.support.TransactionCurlCommandSharable
@@ -37,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// todo migrate to composable
 internal class TransactionActivity : BaseChuckerActivity() {
 
     private val viewModel: TransactionViewModel by viewModels {
@@ -72,7 +71,7 @@ internal class TransactionActivity : BaseChuckerActivity() {
                             )
                         }
                     ) { padding ->
-                        val pagerState = rememberPagerState(initialPage = UserSettings.Transaction.openedTabIndex) { 3 }
+                        val pagerState = rememberPagerState(initialPage = Di.userSettings.transaction.openedTabIndex) { 3 }
                         val tabs = listOf(
                             stringResource(id = R.string.chucker_overview),
                             stringResource(id = R.string.chucker_request),

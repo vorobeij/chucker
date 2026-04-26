@@ -12,8 +12,8 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.chuckerteam.chucker.internal.data.cache.UserSettings
 import com.chuckerteam.chucker.internal.data.entity.HttpTransaction
+import com.chuckerteam.chucker.internal.data.repository.Di
 import com.chuckerteam.chucker.internal.ui.compose.screens.overview.TransactionOverviewScreen
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.PayloadType
 import com.chuckerteam.chucker.internal.ui.compose.screens.payload.TransactionPayloadScreen
@@ -38,7 +38,7 @@ internal fun ViewPager(
                     selected = pagerState.currentPage == index,
                     onClick = {
                         coroutineScope.launch {
-                            UserSettings.Transaction.openedTabIndex = index
+                            Di.userSettings.transaction.openedTabIndex = index
                             pagerState.scrollToPage(index)
                         }
                     },

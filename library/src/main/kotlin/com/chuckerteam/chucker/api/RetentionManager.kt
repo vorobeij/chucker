@@ -3,7 +3,7 @@ package com.chuckerteam.chucker.api
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.chuckerteam.chucker.internal.data.repository.RepositoryProvider
+import com.chuckerteam.chucker.internal.data.repository.Di
 import com.chuckerteam.chucker.internal.support.Logger
 import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.sync.Mutex
@@ -70,7 +70,7 @@ public class RetentionManager
         }
 
         private suspend fun deleteSince(threshold: Long) {
-            RepositoryProvider.transaction().deleteOldTransactions(threshold)
+            Di.transactionRepository.deleteOldTransactions(threshold)
         }
 
         private fun isCleanupDue(now: Long) = now - getLastCleanup(now) > cleanupFrequency
