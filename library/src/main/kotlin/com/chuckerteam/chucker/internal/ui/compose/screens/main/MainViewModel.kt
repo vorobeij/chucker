@@ -21,15 +21,12 @@ import kotlinx.coroutines.launch
 
 internal class MainViewModel : ViewModel() {
 
-    private val currentFilter = MutableLiveData("")
+    private val currentFilter = MutableLiveData(SearchFilter())
 
     val transactions: LiveData<List<HttpTransactionTuple>> =
-        currentFilter.switchMap { searchQuery ->
+        currentFilter.switchMap { searchFilter ->
             with(Di.transactionRepository) {
-                when {
-                    searchQuery.isNullOrBlank() -> getSortedTransactionTuples()
-                    else -> getFilteredTransactionTuples(SearchFilter(searchQuery))
-                }
+                getFilteredTransactionTuples(searchFilter)
             }
         }
 
@@ -39,8 +36,8 @@ internal class MainViewModel : ViewModel() {
     suspend fun getAllTransactions(): List<HttpTransaction> =
         Di.transactionRepository.getAllTransactions()
 
-    fun updateItemsFilter(searchQuery: String) {
-        currentFilter.value = searchQuery
+    fun updateItemsFilter(searchFilter: SearchFilter) {
+        currentFilter.value = searchFilter
     }
 
     fun clearTransactions() {

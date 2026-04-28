@@ -28,25 +28,29 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.chuckerteam.chucker.R
 import com.chuckerteam.chucker.internal.data.entity.SuggestionEntity
+import com.chuckerteam.chucker.internal.data.repository.search.SearchFilter
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MySearchBar(
-    onSearch: (String) -> Unit = {}
+    onSearch: (SearchFilter) -> Unit
 ) {
     val viewModel: SearchBarViewModel = viewModel()
     val suggestions by viewModel.suggestions.observeAsState(initial = emptyList())
+    var searchFilter by remember { mutableStateOf(SearchFilter()) } // todo load from viewmode
 
     MySearchBarComponent(
         suggestions = suggestions,
-        onSearch = { query ->
-            viewModel.onSearch(query)
-            onSearch(query)
+        onSearch = {
+            viewModel.onSearch(searchFilter.query)
+            onSearch(searchFilter)
         },
         onQueryChange = viewModel::onQueryChanged,
-        onDelete = viewModel::onDelete
+        onDelete = viewModel::onDelete,
+        searchFilter = searchFilter,
+        onFilterChanged = { searchFilter = it }
     )
 }
 
@@ -56,8 +60,10 @@ internal fun MySearchBarComponent(
     modifier: Modifier = Modifier,
     isSearchActive: Boolean = false,
     suggestions: List<SuggestionEntity>,
+    searchFilter: SearchFilter,
     onQueryChange: (String) -> Unit = {},
-    onSearch: (String) -> Unit = {},
+    onFilterChanged: (SearchFilter) -> Unit = {},
+    onSearch: () -> Unit,
     onDelete: (String) -> Unit = {},
 ) {
 
@@ -79,7 +85,7 @@ internal fun MySearchBarComponent(
             focusManager.clearFocus()
             searchQuery = s
             isSearchActive = false
-            onSearch(s)
+            onSearch()
         }
     }
 
@@ -121,8 +127,10 @@ internal fun MySearchBarComponent(
         SearchFilters(
             modifier = Modifier,
             suggestions = suggestions,
+            searchFilter = searchFilter,
             clearFocusAndSearch = clearFocusAndSearch,
-            onDelete = onDelete
+            onDelete = onDelete,
+            onSearchFilterChanged = onFilterChanged
         )
     }
 }
@@ -133,7 +141,10 @@ private fun Preview() {
     AppTheme {
         MySearchBarComponent(
             isSearchActive = false,
-            suggestions = emptyList()
+            suggestions = emptyList(),
+            searchFilter = SearchFilter(),
+            onFilterChanged = {},
+            onSearch = {},
         )
     }
 }
@@ -144,7 +155,10 @@ private fun Preview2() {
     AppTheme {
         MySearchBarComponent(
             isSearchActive = true,
-            suggestions = suggestionsMock
+            suggestions = suggestionsMock,
+            searchFilter = SearchFilter(),
+            onFilterChanged = {},
+            onSearch = {},
         )
     }
 }

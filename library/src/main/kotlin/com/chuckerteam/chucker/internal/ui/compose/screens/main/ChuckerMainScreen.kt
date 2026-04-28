@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.internal.data.entity.HttpTransactionTuple
+import com.chuckerteam.chucker.internal.data.repository.search.SearchFilter
 import com.chuckerteam.chucker.internal.ui.compose.screens.main.views.MyAppBar
 import com.chuckerteam.chucker.internal.ui.compose.views.TransactionListItem
 
@@ -26,7 +27,7 @@ internal fun ChuckerMainScreen(
     onShareHarClick: () -> Unit,
     onSaveTextClick: () -> Unit,
     onSaveHarClick: () -> Unit,
-    onQueryChange: (String) -> Unit,
+    onQueryChange: (SearchFilter) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column {
