@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.chuckerteam.chucker.internal.data.entity.SuggestionEntity
+import com.chuckerteam.chucker.internal.ui.compose.screens.main.search.filter.FiltersGroup
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 
@@ -53,6 +54,7 @@ internal fun SearchFilters(
 Search in
 [URL] [Req body] [Response body] - see all the params of Translation
 
+
 Type
 [HTTP] [GQL] [SOCKETS]
 
@@ -64,37 +66,43 @@ Teams
 
 *Teams - first parts of url: <host>/part1/part2?qparam1=xxx&qparam2=yyy
          */
-    Column {
-        var historyLines by remember { mutableIntStateOf(2) }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            SearchHistoryButton(
-                text = "Clear",
-                onClick = { TODO() }
-            )
-            SearchHistoryButton(
-                text = "All",
-                onClick = { historyLines = Int.MAX_VALUE }
-            )
-        }
-        FlowRow(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            itemVerticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(4.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp),
-            maxLines = historyLines
-        ) {
-            suggestions.forEach { suggestionEntity ->
-                SuggestionChip(
-                    text = suggestionEntity.query,
-                    onClick = { s -> clearFocusAndSearch(s) },
-                    onDelete = { onDelete(suggestionEntity.query) },// todo by id
-                    modifier = Modifier.height(40.dp)
+    Column(
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
+        Column {
+            var historyLines by remember { mutableIntStateOf(2) }
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                SearchHistoryButton(
+                    text = "Clear",
+                    onClick = { TODO() }
+                )
+                SearchHistoryButton(
+                    text = "All",
+                    onClick = { historyLines = Int.MAX_VALUE }
                 )
             }
+            FlowRow(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                itemVerticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
+                maxLines = historyLines
+            ) {
+                suggestions.forEach { suggestionEntity ->
+                    SuggestionChip(
+                        text = suggestionEntity.query,
+                        onClick = { s -> clearFocusAndSearch(s) },
+                        onDelete = { onDelete(suggestionEntity.query) },// todo by id
+                        modifier = Modifier.height(40.dp)
+                    )
+                }
+            }
         }
+
+        FiltersGroup()
     }
 }
 

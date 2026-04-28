@@ -31,7 +31,6 @@ import com.chuckerteam.chucker.internal.data.entity.SuggestionEntity
 import com.chuckerteam.design.system.theme.AppPreview
 import com.chuckerteam.design.system.theme.AppTheme
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun MySearchBar(
